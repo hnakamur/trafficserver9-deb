@@ -1,3 +1,9 @@
+trafficserver (8.0.2+ds-1ubuntu1ppa1~18.04.1) bionic; urgency=medium
+
+  * Backport to Ubuntu 18.04 LTS 
+
+ -- Hiroaki Nakamura <hnakamur@gmail.com>  Tue, 26 Feb 2019 09:48:21 +0900
+
 trafficserver (8.0.2+ds-1ubuntu1) disco; urgency=low
 
   * Merge from Debian unstable.  Remaining changes:
