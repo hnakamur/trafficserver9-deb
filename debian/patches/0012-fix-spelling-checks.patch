@@ -5,9 +5,24 @@ Applied-Upstream: https://github.com/apache/trafficserver/commit/af0ad4a1880a217
 Last-Update: 2019-01-03
 ---
 This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+diff --git a/build/pkg.m4 b/build/pkg.m4
+index b7ca359..dd5a631 100644
+--- a/build/pkg.m4
++++ b/build/pkg.m4
+@@ -53,7 +53,7 @@ fi[]dnl
+ # to PKG_CHECK_MODULES(), but does not set variables or print errors.
+ #
+ # Please remember that m4 expands AC_REQUIRE([PKG_PROG_PKG_CONFIG])
+-# only at the first occurence in configure.ac, so if the first place
++# only at the first occurrence in configure.ac, so if the first place
+ # it's called might be skipped (such as if it is within an "if", you
+ # have to call PKG_CHECK_EXISTS manually
+ # --------------------------------------------------------------
+diff --git a/doc/admin-guide/files/ip_allow.config.en.rst b/doc/admin-guide/files/ip_allow.config.en.rst
+index 537afcb..d63a126 100644
 --- a/doc/admin-guide/files/ip_allow.config.en.rst
 +++ b/doc/admin-guide/files/ip_allow.config.en.rst
-@@ -55,7 +55,7 @@ range with the lower and upper values eq
+@@ -55,7 +55,7 @@ range with the lower and upper values equal to that IP address).
  The value of ``method`` is a string which must consist of either HTTP method names separated by the
  character '|' or the keyword literal ``ALL``. This keyword may omitted in which case it is treated
  as if it were ``method=ALL``. Methods can also be specified by having multiple instances of the
@@ -16,7 +31,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  ``method=GET method=HEAD``. The method names are not validated which means non-standard method names
  can be specified.
  
-@@ -104,7 +104,7 @@ If the entire subnet were to be denied,
+@@ -104,7 +104,7 @@ If the entire subnet were to be denied, that would be::
  
     src_ip=123.45.6.0/24 action=ip_deny
  
@@ -25,9 +40,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
     dest_ip=0.0.0.0-255.255.255.255 action=ip_allow
  
+diff --git a/doc/admin-guide/files/parent.config.en.rst b/doc/admin-guide/files/parent.config.en.rst
+index 3a26e95..4b2a98f 100644
 --- a/doc/admin-guide/files/parent.config.en.rst
 +++ b/doc/admin-guide/files/parent.config.en.rst
-@@ -189,7 +189,7 @@ The following list shows the possible ac
+@@ -202,7 +202,7 @@ The following list shows the possible actions and their allowed values.
      - ``simple_retry`` - If the parent origin server returns a 404 response on a request
        a new parent is selected and the request is retried.  The number of retries is controlled
        by ``max_simple_retries`` which is set to 1 by default.
@@ -36,7 +53,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
        a list of http 5xx responses defined in ``unavailable_server_retry_responses``, the currently selected
        parent is marked down and a new parent is selected to retry the request.  The number of
        retries is controlled by ``max_unavailable_server_retries`` which is set to 1 by default.
-@@ -207,7 +207,7 @@ The following list shows the possible ac
+@@ -220,7 +220,7 @@ The following list shows the possible actions and their allowed values.
  
  ``max_simple_retries``
    By default the value for ``max_simple_retries`` is 1.  It may be set to any value in the range 1 to 5.
@@ -45,7 +62,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
    from a parent origin server will cause the request to be retried using a new parent at most 1 to 5
    times as configured by ``max_simple_retries``.
  
-@@ -215,7 +215,7 @@ The following list shows the possible ac
+@@ -228,7 +228,7 @@ The following list shows the possible actions and their allowed values.
  
  ``max_unavailable_server_retries``
    By default the value for ``max_unavailable_server_retries`` is 1.  It may be set to any value in the range 1 to 5.
@@ -54,6 +71,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
    by default or any http 5xx response listed in the list ``unavailable_server_retry_responses`` from a parent origin server will
    cause the request to be retried using a new parent after first marking the current parent down.  The request
    will be retried at most 1 to 5 times as configured by ``max_unavailable_server_retries``.
+diff --git a/doc/admin-guide/files/records.config.en.rst b/doc/admin-guide/files/records.config.en.rst
+index 2cfd2a6..c0377d2 100644
 --- a/doc/admin-guide/files/records.config.en.rst
 +++ b/doc/admin-guide/files/records.config.en.rst
 @@ -802,7 +802,7 @@ ip-resolve
@@ -65,7 +84,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
           then send the request to the origin server.
     ``1`` Immediately return a ``100 Continue`` from |TS| without waiting for
           the post body.
-@@ -1608,7 +1608,7 @@ Proxy User Variables
+@@ -1603,7 +1603,7 @@ Proxy User Variables
     connection=full     Full user agent connection :ref:`protocol tags <protocol_tags>`
     ==================  ===============================================================
  
@@ -74,7 +93,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
     a valid value for this variable.  Note that the ``connection`` parameter is a non-standard extension to
     RFC 7239.  Also note that, while Traffic Server allows multiple ``by`` parameters for the same proxy, this
     is prohibited by RFC 7239. Currently, for the ``host`` parameter to provide the original host from the
-@@ -1636,7 +1636,7 @@ Proxy User Variables
+@@ -1631,7 +1631,7 @@ Proxy User Variables
         information.
         See :ts:cv:`proxy.config.http.server_ports` for information on how to enable Proxy Protocol on a port.
  
@@ -83,7 +102,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  .. ts:cv:: CONFIG proxy.config.http.normalize_ae INT 1
     :reloadable:
-@@ -2386,7 +2386,7 @@ DNS
+@@ -2332,7 +2332,7 @@ DNS
  
  .. ts:cv:: CONFIG proxy.config.dns.resolv_conf STRING /etc/resolv.conf
  
@@ -92,7 +111,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
     standard ``resolv.conf`` file, this option allows an administrator to manage the set of resolvers in an external configuration file,
     without affecting how the rest of the operating system uses DNS.
  
-@@ -2404,7 +2404,7 @@ DNS
+@@ -2350,7 +2350,7 @@ DNS
     :reloadable:
     :overridable:
  
@@ -101,7 +120,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  .. ts:cv:: CONFIG proxy.config.dns.dedicated_thread INT 0
  
-@@ -2637,7 +2637,7 @@ HostDB
+@@ -2583,7 +2583,7 @@ HostDB
     Set the frequency (in seconds) to sync hostdb to disk.
  
     Note: hostdb is syncd to disk on a per-partition basis (of which there are 64).
@@ -110,7 +129,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  Logging Configuration
  =====================
-@@ -2951,7 +2951,7 @@ Diagnostic Logging Configuration
+@@ -2897,7 +2897,7 @@ Diagnostic Logging Configuration
  
  .. ts:cv:: CONFIG proxy.config.diags.debug.tags STRING http|dns
  
@@ -119,7 +138,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
     contains an anchored regular expression that filters the messages based on the tag. The
     expressions are prefix matched which creates an implicit ``.*`` at the end. Therefore the default
     value ``http|dns`` will match tags such as ``http``, ``http_hdrs``, ``dns``, and ``dns_recv``.
-@@ -2959,7 +2959,7 @@ Diagnostic Logging Configuration
+@@ -2905,7 +2905,7 @@ Diagnostic Logging Configuration
     Some commonly used debug tags are:
  
     ============  =====================================================
@@ -128,7 +147,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
     ============  =====================================================
     dns           DNS query resolution
     http_hdrs     Logs the headers for HTTP requests and responses
-@@ -3115,7 +3115,7 @@ SSL Termination
+@@ -3061,7 +3061,7 @@ SSL Termination
  .. ts:cv:: CONFIG proxy.config.ssl.client.groups_list STRING <See notes under proxy.config.ssl.server.groups_list.>
  
     Configures the list of supported groups provided by OpenSSL which
@@ -137,7 +156,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
     of TLSv1.3 connections. The value is a colon separated list of
     group NIDs or names, for example "P-521:P-384:P-256". For
     instructions, see "Groups" section of `TLS1.3 - OpenSSLWiki <https://wiki.openssl.org/index.php/TLS1.3#Groups>`_.
-@@ -3254,7 +3254,7 @@ SSL Termination
+@@ -3204,7 +3204,7 @@ SSL Termination
     ``0`` Disables the session cache entirely.
     ``1`` Enables the session cache using OpenSSL's implementation.
     ``2`` Default. Enables the session cache using |TS|'s implementation. This
@@ -146,6 +165,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
           implementation.
     ===== ======================================================================
  
+diff --git a/doc/admin-guide/files/remap.config.en.rst b/doc/admin-guide/files/remap.config.en.rst
+index bbd5f6d..bd7ee3d 100644
 --- a/doc/admin-guide/files/remap.config.en.rst
 +++ b/doc/admin-guide/files/remap.config.en.rst
 @@ -415,7 +415,7 @@ Acl Filters
@@ -157,9 +178,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  Examples
  --------
+diff --git a/doc/admin-guide/files/storage.config.en.rst b/doc/admin-guide/files/storage.config.en.rst
+index 943dc94..91b72b5 100644
 --- a/doc/admin-guide/files/storage.config.en.rst
 +++ b/doc/admin-guide/files/storage.config.en.rst
-@@ -92,7 +92,7 @@ which will effectively clear most of the
+@@ -92,7 +92,7 @@ which will effectively clear most of the cache. This can be problem when drives
  reboot causes the path names to change.
  
  The :arg:`id` option can be used to create a fixed string that an administrator can use to keep the
@@ -168,6 +191,30 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  Examples
  ========
+diff --git a/doc/admin-guide/plugins/header_rewrite.en.rst b/doc/admin-guide/plugins/header_rewrite.en.rst
+index 25f6c52..a63400f 100644
+--- a/doc/admin-guide/plugins/header_rewrite.en.rst
++++ b/doc/admin-guide/plugins/header_rewrite.en.rst
+@@ -330,7 +330,7 @@ The data that can be checked is ::
+    %{INBOUND:REMOTE-PORT}     The client port for the connection.
+    %{INBOUND:TLS}             The TLS protocol if the connection is over TLS, otherwise the empty string.
+    %{INBOUND:H2}              The string "h2" if the connection is HTTP/2, otherwise the empty string.
+-   %{INBOUND:IPV4}            The string "ipv4" if the connection is IPv4, otherwise the emtpy string.
++   %{INBOUND:IPV4}            The string "ipv4" if the connection is IPv4, otherwise the empty string.
+    %{INBOUND:IPV6}            The string "ipv6" if the connection is IPv6, otherwise the empty string.
+    %{INBOUND:IP-FAMILY}       The IP family, either "ipv4" or "ipv6".
+    %{INBOUND:STACK}           The full protocol stack separated by ','.
+@@ -827,7 +827,7 @@ Variable                Description
+ %<INBOUND:TLS>          The TLS protocol for the inbound connection if it is over TLS, otherwise the
+                         empty string.
+ %<INBOUND:H2>           The string "h2" if the inbound connection is HTTP/2, otherwise the empty string.
+-%<INBOUND:IPV4>         The string "ipv4" if the inbound connection is IPv4, otherwise the emtpy string.
++%<INBOUND:IPV4>         The string "ipv4" if the inbound connection is IPv4, otherwise the empty string.
+ %<INBOUND:IPV6>         The string "ipv6" if the inbound connection is IPv6, otherwise the empty string.
+ %<INBOUND:IP-FAMILY>    The IP family of the inbound connection (either "ipv4" or "ipv6").
+ %<INBOUND:STACK>        The full protocol stack of the inbound connection separated by ','.
+diff --git a/doc/appendices/command-line/traffic_ctl.en.rst b/doc/appendices/command-line/traffic_ctl.en.rst
+index 7bc4797..cfbd571 100644
 --- a/doc/appendices/command-line/traffic_ctl.en.rst
 +++ b/doc/appendices/command-line/traffic_ctl.en.rst
 @@ -255,7 +255,7 @@ traffic_ctl host
@@ -179,14 +226,18 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  .. program:: traffic_ctl host
  .. option:: down --time seconds HOSTNAME [HOSTNAME ...]
+diff --git a/doc/developer-guide/api/functions/TSCacheRemove.en.rst b/doc/developer-guide/api/functions/TSCacheRemove.en.rst
+index 73cfd7d..f5647d5 100644
 --- a/doc/developer-guide/api/functions/TSCacheRemove.en.rst
 +++ b/doc/developer-guide/api/functions/TSCacheRemove.en.rst
-@@ -41,4 +41,4 @@ the cache calls :arg:`contp` back with t
+@@ -41,4 +41,4 @@ the cache calls :arg:`contp` back with the event
  In both of these callbacks, the user (:arg:`contp`) does not have to do
  anything.  The user does not get any vconnection from the cache, since
  no data needs to be transferred.  When the cache calls :arg:`contp` back with
 -:data:`TS_EVENT_CACHE_REMOVE`, the remove has already been commited.
 +:data:`TS_EVENT_CACHE_REMOVE`, the remove has already been committed.
+diff --git a/doc/developer-guide/api/functions/TSContSchedule.en.rst b/doc/developer-guide/api/functions/TSContSchedule.en.rst
+index 27820cd..944a481 100644
 --- a/doc/developer-guide/api/functions/TSContSchedule.en.rst
 +++ b/doc/developer-guide/api/functions/TSContSchedule.en.rst
 @@ -32,7 +32,7 @@ Description
@@ -198,6 +249,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  not be effective. :arg:`contp` is required to have a mutex, which is provided to
  :func:`TSContCreate`.
  
+diff --git a/doc/developer-guide/api/functions/TSHttpConnectWithPluginId.en.rst b/doc/developer-guide/api/functions/TSHttpConnectWithPluginId.en.rst
+index 88e805c..0f6186f 100644
 --- a/doc/developer-guide/api/functions/TSHttpConnectWithPluginId.en.rst
 +++ b/doc/developer-guide/api/functions/TSHttpConnectWithPluginId.en.rst
 @@ -79,7 +79,7 @@ virtual connection.
@@ -209,6 +262,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  generated logs to correlate the log records.
  
  Notes
+diff --git a/doc/developer-guide/api/functions/TSHttpOverridableConfig.en.rst b/doc/developer-guide/api/functions/TSHttpOverridableConfig.en.rst
+index 4ea4be4..c08925e 100644
 --- a/doc/developer-guide/api/functions/TSHttpOverridableConfig.en.rst
 +++ b/doc/developer-guide/api/functions/TSHttpOverridableConfig.en.rst
 @@ -43,7 +43,7 @@ Description
@@ -220,6 +275,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  changing the actual operating values of the transaction. The critical effect is
  the value must be changed before it is used by the transaction - after that,
  changes will not have any effect.
+diff --git a/doc/developer-guide/api/functions/TSHttpTxnErrorBodySet.en.rst b/doc/developer-guide/api/functions/TSHttpTxnErrorBodySet.en.rst
+index cee7207..52fc4c0 100644
 --- a/doc/developer-guide/api/functions/TSHttpTxnErrorBodySet.en.rst
 +++ b/doc/developer-guide/api/functions/TSHttpTxnErrorBodySet.en.rst
 @@ -36,4 +36,4 @@ Description
@@ -228,6 +285,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  defaults to :literal:`text/html`. Sending an empty string would prevent setting
 -a content type header (but that is not adviced).
 +a content type header (but that is not advised).
+diff --git a/doc/developer-guide/api/functions/TSHttpTxnMilestoneGet.en.rst b/doc/developer-guide/api/functions/TSHttpTxnMilestoneGet.en.rst
+index 08fb5d3..1c0ee73 100644
 --- a/doc/developer-guide/api/functions/TSHttpTxnMilestoneGet.en.rst
 +++ b/doc/developer-guide/api/functions/TSHttpTxnMilestoneGet.en.rst
 @@ -138,7 +138,7 @@ is successful.
@@ -239,9 +298,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  
  *  The server connect times predate the transmission of the :literal:`SYN`
+diff --git a/doc/developer-guide/api/functions/TSHttpTxnServerIntercept.en.rst b/doc/developer-guide/api/functions/TSHttpTxnServerIntercept.en.rst
+index a546aa3..bc70ecc 100644
 --- a/doc/developer-guide/api/functions/TSHttpTxnServerIntercept.en.rst
 +++ b/doc/developer-guide/api/functions/TSHttpTxnServerIntercept.en.rst
-@@ -53,7 +53,7 @@ The response from the plugin is cached s
+@@ -53,7 +53,7 @@ The response from the plugin is cached subject to standard and configured HTTP
  caching rules. Should the plugin wish the response not be cached, the plugin
  must use appropriate HTTP response headers to prevent caching. The primary
  purpose of :func:`TSHttpTxnServerIntercept` is allow plugins to provide gateways
@@ -250,6 +311,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  to the server. :func:`TSHttpTxnServerIntercept` overrides parent cache
  configuration.
  
+diff --git a/doc/developer-guide/api/functions/TSIOBufferReader.en.rst b/doc/developer-guide/api/functions/TSIOBufferReader.en.rst
+index 9591962..a5c5702 100644
 --- a/doc/developer-guide/api/functions/TSIOBufferReader.en.rst
 +++ b/doc/developer-guide/api/functions/TSIOBufferReader.en.rst
 @@ -59,7 +59,7 @@ has two very important consequences --
@@ -261,6 +324,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
  :func:`TSIOBufferReaderAlloc` allocates a reader for the IO buffer :arg:`bufp`. This should only be
        called on a newly allocated buffer. If not the location of the reader in the buffer will be
+diff --git a/doc/developer-guide/api/functions/TSSslContext.en.rst b/doc/developer-guide/api/functions/TSSslContext.en.rst
+index e921d5b..9337895 100644
 --- a/doc/developer-guide/api/functions/TSSslContext.en.rst
 +++ b/doc/developer-guide/api/functions/TSSslContext.en.rst
 @@ -36,11 +36,11 @@ Description
@@ -277,9 +342,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  :arg:`address`.
  
  
+diff --git a/doc/developer-guide/api/functions/TSSslSession.en.rst b/doc/developer-guide/api/functions/TSSslSession.en.rst
+index ebf9fcc..321f34f 100644
 --- a/doc/developer-guide/api/functions/TSSslSession.en.rst
 +++ b/doc/developer-guide/api/functions/TSSslSession.en.rst
-@@ -46,7 +46,7 @@ The functions also work with the :type:`
+@@ -46,7 +46,7 @@ The functions also work with the :type:`TSSslSession` object which can be cast t
  
  These functions perform the appropriate locking on the session cache to avoid errors.
  
@@ -288,6 +355,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  :type:`TSSslSessionID` object.  If there is no matching sesion object, :func:`TSSslSessionGet` returns NULL and :func:`TSSslSessionGetBuffer`
  returns 0.
  
+diff --git a/doc/developer-guide/api/functions/TSStat.en.rst b/doc/developer-guide/api/functions/TSStat.en.rst
+index 43d585f..64b539f 100644
 --- a/doc/developer-guide/api/functions/TSStat.en.rst
 +++ b/doc/developer-guide/api/functions/TSStat.en.rst
 @@ -46,9 +46,9 @@ Description
@@ -302,6 +371,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  creating the same statistic twice will fail in this way, which can happen if statistics are created
  as part of or based on configuration files and |TS| is reloaded.
  
+diff --git a/doc/developer-guide/api/functions/TSVConnReenable.en.rst b/doc/developer-guide/api/functions/TSVConnReenable.en.rst
+index 847c690..8ac6e0c 100644
 --- a/doc/developer-guide/api/functions/TSVConnReenable.en.rst
 +++ b/doc/developer-guide/api/functions/TSVConnReenable.en.rst
 @@ -32,7 +32,7 @@ Description
@@ -313,17 +384,43 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  connection.
  
  If the server is running OpenSSL 1.0.1 with the appropraite patch installed or
+diff --git a/doc/developer-guide/api/functions/TSfwrite.en.rst b/doc/developer-guide/api/functions/TSfwrite.en.rst
+index 30b33ae..3b064ac 100644
 --- a/doc/developer-guide/api/functions/TSfwrite.en.rst
 +++ b/doc/developer-guide/api/functions/TSfwrite.en.rst
-@@ -44,4 +44,4 @@ The behavior is undefined if length is g
+@@ -44,4 +44,4 @@ The behavior is undefined if length is greater than SSIZE_MAX.
  Return Value
  ============
  
 -Returns the number of bytes actually written, or -1 if an error occured.
 +Returns the number of bytes actually written, or -1 if an error occurred.
+diff --git a/include/tscpp/util/TextView.h b/include/tscpp/util/TextView.h
+index d4494cd..0713fac 100644
+--- a/include/tscpp/util/TextView.h
++++ b/include/tscpp/util/TextView.h
+@@ -264,7 +264,7 @@ public:
+   self_type prefix(size_t n) const;
+   /// Convenience overload to avoid ambiguity for literal numbers.
+   self_type prefix(int n) const;
+-  /** Get the prefix delimited by the first occurence of the character @a c.
++  /** Get the prefix delimited by the first occurrence of the character @a c.
+ 
+       If @a c is not found the entire view is returned.
+       The delimiter character is not included in the returned view.
+@@ -272,7 +272,7 @@ public:
+       @return A view of the prefix.
+   */
+   self_type prefix(char c) const;
+-  /** Get the prefix delimited by the first occurence of a character in @a delimiters.
++  /** Get the prefix delimited by the first occurrence of a character in @a delimiters.
+ 
+       If no such character is found the entire view is returned.
+       The delimiter character is not included in the returned view.
+diff --git a/iocore/cache/CacheHosting.cc b/iocore/cache/CacheHosting.cc
+index e7895b3..08573d7 100644
 --- a/iocore/cache/CacheHosting.cc
 +++ b/iocore/cache/CacheHosting.cc
-@@ -715,7 +715,7 @@ ConfigVolumes::BuildListFromString(char
+@@ -715,7 +715,7 @@ ConfigVolumes::BuildListFromString(char *config_file_path, char *file_buf)
            // added by YTS Team, yamsat for bug id 59632
            total += size;
            if (size > 100 || total > 100) {
@@ -332,6 +429,34 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
              break;
            }
            // ends here
+diff --git a/iocore/cache/CacheVol.cc b/iocore/cache/CacheVol.cc
+index 98009a4..113ca52 100644
+--- a/iocore/cache/CacheVol.cc
++++ b/iocore/cache/CacheVol.cc
+@@ -400,7 +400,7 @@ CacheVC::scanOpenWrite(int /* event ATS_UNUSED */, Event * /* e ATS_UNUSED */)
+   // get volume lock
+   if (writer_lock_retry > SCAN_WRITER_LOCK_MAX_RETRY) {
+     int r = _action.continuation->handleEvent(CACHE_EVENT_SCAN_OPERATION_BLOCKED, nullptr);
+-    Debug("cache_scan", "still havent got the writer lock, asking user..");
++    Debug("cache_scan", "still haven't got the writer lock, asking user..");
+     switch (r) {
+     case CACHE_SCAN_RESULT_RETRY:
+       writer_lock_retry = 0;
+diff --git a/iocore/dns/SplitDNS.cc b/iocore/dns/SplitDNS.cc
+index 8e076af..5e82275 100644
+--- a/iocore/dns/SplitDNS.cc
++++ b/iocore/dns/SplitDNS.cc
+@@ -341,7 +341,7 @@ SplitDNSRecord::ProcessDNSHosts(char *val)
+       if (tmp - current > (MAXDNAME - 1)) {
+         return "DNS server name (ip) is too long";
+       } else if (tmp - current == 0) {
+-        return "server string is emtpy";
++        return "server string is empty";
+       }
+       *tmp = 0;
+     }
+diff --git a/iocore/eventsystem/IOBuffer.cc b/iocore/eventsystem/IOBuffer.cc
+index d5f5207..080fc43 100644
 --- a/iocore/eventsystem/IOBuffer.cc
 +++ b/iocore/eventsystem/IOBuffer.cc
 @@ -179,7 +179,7 @@ MIOBuffer::puts(char *s, int64_t len)
@@ -343,9 +468,102 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
        end()[n + 1] = 0;
        fill(n + 1);
        return n + 1;
+diff --git a/iocore/eventsystem/I_IOBuffer.h b/iocore/eventsystem/I_IOBuffer.h
+index ac652e3..3e031a2 100644
+--- a/iocore/eventsystem/I_IOBuffer.h
++++ b/iocore/eventsystem/I_IOBuffer.h
+@@ -697,7 +697,7 @@ public:
+   /**
+     Perform a memchr() across the list of IOBufferBlocks. Returns the
+     offset from the current start point of the reader to the first
+-    occurence of character 'c' in the buffer.
++    occurrence of character 'c' in the buffer.
+ 
+     @param c character to look for.
+     @param len number of characters to check. If len exceeds the number
+diff --git a/iocore/net/OCSPStapling.cc b/iocore/net/OCSPStapling.cc
+index ee0534c..d5867b7 100644
+--- a/iocore/net/OCSPStapling.cc
++++ b/iocore/net/OCSPStapling.cc
+@@ -92,7 +92,7 @@ stapling_get_issuer(SSL_CTX *ssl_ctx, X509 *x)
+ 
+ #ifdef SSL_CTX_select_current_cert
+   if (!SSL_CTX_select_current_cert(ssl_ctx, x)) {
+-    Warning("OCSP: could not select current certifcate chain %p", x);
++    Warning("OCSP: could not select current certificate chain %p", x);
+   }
+ #endif
+ 
+diff --git a/iocore/net/Socks.cc b/iocore/net/Socks.cc
+index e1915f2..a1a5999 100644
+--- a/iocore/net/Socks.cc
++++ b/iocore/net/Socks.cc
+@@ -694,7 +694,7 @@ socks5PasswdAuthHandler(int event, unsigned char *p, void (**h_ptr)(void))
+     // NEC thinks it is 5 RFC seems to indicate 1.
+     switch (p[1]) {
+     case 0:
+-      Debug("Socks", "Username/Passwd succeded");
++      Debug("Socks", "Username/Passwd succeeded");
+       *h_ptr = nullptr;
+       break;
+ 
+diff --git a/iocore/net/UnixUDPNet.cc b/iocore/net/UnixUDPNet.cc
+index 71b45bb..05383fb 100644
+--- a/iocore/net/UnixUDPNet.cc
++++ b/iocore/net/UnixUDPNet.cc
+@@ -628,7 +628,7 @@ UDPNetProcessor::CreateUDPSocket(int *resfd, sockaddr const *remote_addr, Action
+     }
+ 
+     if ((res = safe_getsockname(fd, &local_addr.sa, &local_addr_len)) < 0) {
+-      Debug("udpnet", "CreateUdpsocket: getsockname didnt' work");
++      Debug("udpnet", "CreateUdpsocket: getsockname didn't work");
+       goto HardError;
+     }
+   }
+diff --git a/lib/records/RecHttp.cc b/lib/records/RecHttp.cc
+index abb1439..0d89ac7 100644
+--- a/lib/records/RecHttp.cc
++++ b/lib/records/RecHttp.cc
+@@ -410,7 +410,7 @@ HttpProxyPort::processOptions(const char *opts)
+     if (in_ip_set_p && m_family != m_inbound_ip.family()) {
+       std::string_view iname{ats_ip_family_name(m_inbound_ip.family())};
+       std::string_view fname{ats_ip_family_name(m_family)};
+-      Warning("Invalid port descriptor '%s' - the inbound adddress family [%.*s] is not the same type as the explicit family value "
++      Warning("Invalid port descriptor '%s' - the inbound address family [%.*s] is not the same type as the explicit family value "
+               "[%.*s]",
+               opts, static_cast<int>(iname.size()), iname.data(), static_cast<int>(fname.size()), fname.data());
+       zret = false;
+diff --git a/mgmt/Alarms.cc b/mgmt/Alarms.cc
+index 0ab514d..5f7bb84 100644
+--- a/mgmt/Alarms.cc
++++ b/mgmt/Alarms.cc
+@@ -297,7 +297,7 @@ Alarms::signalAlarm(alarm_t a, const char *desc, const char *ip)
+     (*(func))(a, ip, desc);
+   }
+ 
+-  /* Priority 2 alarms get signalled if they are the first unsolved occurence. */
++  /* Priority 2 alarms get signalled if they are the first unsolved occurrence. */
+   if (priority == 2 && !ip) {
+     execAlarmBin(desc);
+   }
+diff --git a/mgmt/Rollback.cc b/mgmt/Rollback.cc
+index 11321df..a7d22ec 100644
+--- a/mgmt/Rollback.cc
++++ b/mgmt/Rollback.cc
+@@ -133,7 +133,7 @@ Rollback::Rollback(const char *fileName_, bool root_access_needed_, Rollback *pa
+           mgmt_log("[RollBack::Rollback] Automatic Rollback to prior version failed for %s : %s\n", fileName, strerror(errno));
+           needZeroLength = true;
+         } else {
+-          mgmt_log("[RollBack::Rollback] Automatic Rollback to version succeded for %s\n", fileName, strerror(errno));
++          mgmt_log("[RollBack::Rollback] Automatic Rollback to version succeeded for %s\n", fileName, strerror(errno));
+           needZeroLength = false;
+           highestSeen--;
+           // Since we've made the highestVersion active
+diff --git a/plugins/esi/lib/EsiProcessor.cc b/plugins/esi/lib/EsiProcessor.cc
+index bb74e5a..272c3ef 100644
 --- a/plugins/esi/lib/EsiProcessor.cc
 +++ b/plugins/esi/lib/EsiProcessor.cc
-@@ -305,7 +305,7 @@ EsiProcessor::process(const char *&data,
+@@ -305,7 +305,7 @@ EsiProcessor::process(const char *&data, int &data_len)
  
      /* FAILURE CACHE */
      FailureData *data = static_cast<FailureData *>(pthread_getspecific(threadKey));
@@ -354,7 +572,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
      for (iter = try_iter->attempt_nodes.begin(); iter != try_iter->attempt_nodes.end(); ++iter) {
        if ((iter->type == DocNode::TYPE_INCLUDE) || iter->type == DocNode::TYPE_SPECIAL_INCLUDE) {
-@@ -342,7 +342,7 @@ EsiProcessor::process(const char *&data,
+@@ -342,7 +342,7 @@ EsiProcessor::process(const char *&data, int &data_len)
        }
      }
      if (attempt_succeeded) {
@@ -363,7 +581,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
        _node_list.splice(try_iter->pos, try_iter->attempt_nodes);
      } else {
        _debugLog(_debug_tag, "[%s] attempt section errored; trying except section", __FUNCTION__);
-@@ -436,7 +436,7 @@ EsiProcessor::flush(string &data, int &o
+@@ -436,7 +436,7 @@ EsiProcessor::flush(string &data, int &overall_len)
  
      /* FAILURE CACHE */
      FailureData *fdata = static_cast<FailureData *>(pthread_getspecific(threadKey));
@@ -372,7 +590,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
      for (iter = try_iter->attempt_nodes.begin(); iter != try_iter->attempt_nodes.end(); ++iter) {
        if ((iter->type == DocNode::TYPE_INCLUDE) || iter->type == DocNode::TYPE_SPECIAL_INCLUDE) {
-@@ -473,7 +473,7 @@ EsiProcessor::flush(string &data, int &o
+@@ -473,7 +473,7 @@ EsiProcessor::flush(string &data, int &overall_len)
        }
      }
      if (attempt_succeeded) {
@@ -381,9 +599,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
        _n_prescanned_nodes = _n_prescanned_nodes + try_iter->attempt_nodes.size();
        _node_list.splice(try_iter->pos, try_iter->attempt_nodes);
      } else {
+diff --git a/plugins/esi/lib/Variables.cc b/plugins/esi/lib/Variables.cc
+index ca30485..adec87e 100644
 --- a/plugins/esi/lib/Variables.cc
 +++ b/plugins/esi/lib/Variables.cc
-@@ -437,18 +437,18 @@ Variables::_parseDictVariable(const std:
+@@ -437,18 +437,18 @@ Variables::_parseDictVariable(const std::string &variable, const char *&header,
    for (int i = 0; i < (var_size - 1); ++i) {
      if (variable[i] == '{') {
        if (paranth_index != -1) {
@@ -405,9 +625,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      return false;
    }
    if (paranth_index == 0) {
+diff --git a/plugins/experimental/collapsed_forwarding/collapsed_forwarding.cc b/plugins/experimental/collapsed_forwarding/collapsed_forwarding.cc
+index 9e4d41e..d9165be 100644
 --- a/plugins/experimental/collapsed_forwarding/collapsed_forwarding.cc
 +++ b/plugins/experimental/collapsed_forwarding/collapsed_forwarding.cc
-@@ -353,7 +353,7 @@ TSRemapInit(TSRemapInterface * /* api_in
+@@ -353,7 +353,7 @@ TSRemapInit(TSRemapInterface * /* api_info */, char * /* errbuf */, int /* errbu
      TSError("Cannot initialize %s as both global and remap plugin", DEBUG_TAG);
      return TS_ERROR;
    } else {
@@ -416,9 +638,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      return TS_SUCCESS;
    }
  }
+diff --git a/plugins/experimental/fq_pacing/fq_pacing.c b/plugins/experimental/fq_pacing/fq_pacing.c
+index 297e23f..b38a433 100644
 --- a/plugins/experimental/fq_pacing/fq_pacing.c
 +++ b/plugins/experimental/fq_pacing/fq_pacing.c
-@@ -118,7 +118,7 @@ TSRemapInit(TSRemapInterface *api_info,
+@@ -118,7 +118,7 @@ TSRemapInit(TSRemapInterface *api_info, char *errbuf, int errbuf_size)
      return TS_ERROR;
    }
  
@@ -427,9 +651,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
    return TS_SUCCESS;
  }
  
+diff --git a/plugins/experimental/header_normalize/header_normalize.cc b/plugins/experimental/header_normalize/header_normalize.cc
+index 1dddf35..d408ed5 100644
 --- a/plugins/experimental/header_normalize/header_normalize.cc
 +++ b/plugins/experimental/header_normalize/header_normalize.cc
-@@ -158,7 +158,7 @@ TSRemapInit(TSRemapInterface *api_info,
+@@ -158,7 +158,7 @@ TSRemapInit(TSRemapInterface *api_info, char *errbuf, int errbuf_size)
      return TS_ERROR;
    }
    buildHdrMap();
@@ -438,6 +664,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
    return TS_SUCCESS;
  }
  
+diff --git a/plugins/experimental/prefetch/plugin.cc b/plugins/experimental/prefetch/plugin.cc
+index 1c16ae0..e71d039 100644
 --- a/plugins/experimental/prefetch/plugin.cc
 +++ b/plugins/experimental/prefetch/plugin.cc
 @@ -202,7 +202,7 @@ evaluate(const String &v)
@@ -449,9 +677,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
    int result = 0;
    pos        = stmt.find_first_of("+-");
+diff --git a/plugins/experimental/uri_signing/parse.c b/plugins/experimental/uri_signing/parse.c
+index ade5706..6f7d421 100644
 --- a/plugins/experimental/uri_signing/parse.c
 +++ b/plugins/experimental/uri_signing/parse.c
-@@ -142,7 +142,7 @@ validate_jws(cjose_jws_t *jws, struct co
+@@ -142,7 +142,7 @@ validate_jws(cjose_jws_t *jws, struct config *cfg, const char *uri, size_t uri_c
      PluginDebug("Initial validation of JWT failed for %16p", jws);
      goto jwt_fail;
    }
@@ -460,9 +690,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
  
    cjose_header_t *hdr = cjose_jws_get_protected(jws);
    TimerDebug("getting header of jws");
+diff --git a/plugins/experimental/uri_signing/uri_signing.c b/plugins/experimental/uri_signing/uri_signing.c
+index c648d18..55ba117 100644
 --- a/plugins/experimental/uri_signing/uri_signing.c
 +++ b/plugins/experimental/uri_signing/uri_signing.c
-@@ -46,7 +46,7 @@ TSRemapInit(TSRemapInterface *api_info,
+@@ -46,7 +46,7 @@ TSRemapInit(TSRemapInterface *api_info, char *errbuf, int errbuf_size)
      return TS_ERROR;
    }
  
@@ -471,9 +703,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
    return TS_SUCCESS;
  }
  
+diff --git a/plugins/experimental/url_sig/url_sig.c b/plugins/experimental/url_sig/url_sig.c
+index 65c36ac..5a61a2c 100644
 --- a/plugins/experimental/url_sig/url_sig.c
 +++ b/plugins/experimental/url_sig/url_sig.c
-@@ -98,7 +98,7 @@ TSRemapInit(TSRemapInterface *api_info,
+@@ -98,7 +98,7 @@ TSRemapInit(TSRemapInterface *api_info, char *errbuf, int errbuf_size)
      return TS_ERROR;
    }
  
@@ -482,9 +716,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
    return TS_SUCCESS;
  }
  
+diff --git a/plugins/generator/generator.cc b/plugins/generator/generator.cc
+index 276313a..5f282cd 100644
 --- a/plugins/generator/generator.cc
 +++ b/plugins/generator/generator.cc
-@@ -609,7 +609,7 @@ GeneratorTxnHook(TSCont contp, TSEvent e
+@@ -609,7 +609,7 @@ GeneratorTxnHook(TSCont contp, TSEvent event, void *edata)
      TSReleaseAssert(TSHttpTxnCacheLookupStatusGet(arg.txn, &status) == TS_SUCCESS);
      if (status != TS_CACHE_LOOKUP_HIT_FRESH) {
        // This transaction is going to be a cache miss, so intercept it.
@@ -493,9 +729,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
        TSHttpTxnServerIntercept(TSContCreate(GeneratorInterceptionHook, TSMutexCreate()), arg.txn);
      }
  
+diff --git a/plugins/header_rewrite/header_rewrite.cc b/plugins/header_rewrite/header_rewrite.cc
+index e95b53c..3afdcc8 100644
 --- a/plugins/header_rewrite/header_rewrite.cc
 +++ b/plugins/header_rewrite/header_rewrite.cc
-@@ -330,7 +330,7 @@ TSPluginInit(int argc, const char *argv[
+@@ -330,7 +330,7 @@ TSPluginInit(int argc, const char *argv[])
      // just appended to the configurations.
      TSDebug(PLUGIN_NAME, "Loading global configuration file %s", argv[i]);
      if (conf->parse_config(argv[i], TS_HTTP_READ_RESPONSE_HDR_HOOK)) {
@@ -504,7 +742,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
        got_config = true;
      } else {
        TSError("[header_rewrite] failed to parse configuration file %s", argv[i]);
-@@ -401,7 +401,7 @@ TSRemapNewInstance(int argc, char *argv[
+@@ -401,7 +401,7 @@ TSRemapNewInstance(int argc, char *argv[], void **ih, char * /* errbuf ATS_UNUSE
        delete conf;
        return TS_ERROR;
      } else {
@@ -513,7 +751,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      }
    }
  
-@@ -470,6 +470,6 @@ TSRemapDoRemap(void *ih, TSHttpTxn rh, T
+@@ -470,6 +470,6 @@ TSRemapDoRemap(void *ih, TSHttpTxn rh, TSRemapRequestInfo *rri)
      rule = rule->next;
    }
  
@@ -521,9 +759,24 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
 +  TSDebug(PLUGIN_NAME_DBG, "Returning from TSRemapDoRemap with status: %d", rval);
    return rval;
  }
+diff --git a/plugins/lua/ts_lua_transform.c b/plugins/lua/ts_lua_transform.c
+index e66a3b0..7b676a8 100644
+--- a/plugins/lua/ts_lua_transform.c
++++ b/plugins/lua/ts_lua_transform.c
+@@ -89,7 +89,7 @@ ts_lua_transform_handler(TSCont contp, ts_lua_http_transform_ctx *transform_ctx,
+   empty_input = 0;
+   if (!TSVIOBufferGet(input_vio)) {
+     if (transform_ctx->output.vio) {
+-      TSDebug(TS_LUA_DEBUG_TAG, "[%s] reenabling ouput VIO after input VIO does not exist", __FUNCTION__);
++      TSDebug(TS_LUA_DEBUG_TAG, "[%s] reenabling output VIO after input VIO does not exist", __FUNCTION__);
+       TSVIONBytesSet(transform_ctx->output.vio, transform_ctx->total);
+       TSVIOReenable(transform_ctx->output.vio);
+       return 0;
+diff --git a/plugins/s3_auth/s3_auth.cc b/plugins/s3_auth/s3_auth.cc
+index 1d95405..f8feb67 100644
 --- a/plugins/s3_auth/s3_auth.cc
 +++ b/plugins/s3_auth/s3_auth.cc
-@@ -871,7 +871,7 @@ event_handler(TSCont cont, TSEvent event
+@@ -871,7 +871,7 @@ event_handler(TSCont cont, TSEvent event, void *edata)
      }
  
      if (TS_HTTP_STATUS_OK == status) {
@@ -532,6 +785,73 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      } else {
        TSDebug(PLUGIN_NAME, "Failed to sign the AWS S3 URL, status = %d", status);
        TSHttpTxnStatusSet(txnp, status);
+diff --git a/proxy/ParentSelection.cc b/proxy/ParentSelection.cc
+index 496146d..183f71c 100644
+--- a/proxy/ParentSelection.cc
++++ b/proxy/ParentSelection.cc
+@@ -491,7 +491,7 @@ ParentRecord::ProcessParents(char *val, bool isPrimary)
+       errPtr = "Parent hostname is too long";
+       goto MERROR;
+     } else if (tmp - current == 0) {
+-      errPtr = "Parent string is emtpy";
++      errPtr = "Parent string is empty";
+       goto MERROR;
+     }
+     // Update the pRecords
+diff --git a/proxy/hdrs/HdrHeap.cc b/proxy/hdrs/HdrHeap.cc
+index 0de45b2..880988b 100644
+--- a/proxy/hdrs/HdrHeap.cc
++++ b/proxy/hdrs/HdrHeap.cc
+@@ -950,7 +950,7 @@ HdrHeap::unmarshal(int buf_length, int obj_type, HdrHeapObjImpl **found_obj, Ref
+       // Nothing to do
+       break;
+     default:
+-      fprintf(stderr, "WARNING: Unmarshal failed due to unknow obj type %d after %d bytes", (int)obj->m_type,
++      fprintf(stderr, "WARNING: Unmarshal failed due to unknown obj type %d after %d bytes", (int)obj->m_type,
+               (int)(obj_data - (char *)this));
+       dump_heap(unmarshal_size);
+       return -1;
+diff --git a/proxy/http/HttpSessionManager.cc b/proxy/http/HttpSessionManager.cc
+index 5d573cc..81fc856 100644
+--- a/proxy/http/HttpSessionManager.cc
++++ b/proxy/http/HttpSessionManager.cc
+@@ -204,7 +204,7 @@ ServerSessionPool::eventHandler(int event, void *data)
+         if (connection_count_below_min) {
+           Debug("http_ss",
+                 "[%" PRId64 "] [session_bucket] session received io notice [%s], "
+-                "reseting timeout to maintain minimum number of connections",
++                "resetting timeout to maintain minimum number of connections",
+                 s->con_id, HttpDebugNames::get_event_name(event));
+           s->get_netvc()->set_inactivity_timeout(s->get_netvc()->get_inactivity_timeout());
+           s->get_netvc()->set_active_timeout(s->get_netvc()->get_active_timeout());
+diff --git a/proxy/logging/LogBuffer.cc b/proxy/logging/LogBuffer.cc
+index 2b2d1b1..d96e581 100644
+--- a/proxy/logging/LogBuffer.cc
++++ b/proxy/logging/LogBuffer.cc
+@@ -270,7 +270,7 @@ LogBuffer::checkout_write(size_t *write_offset, size_t write_size)
+       }
+ 
+       if (switch_state(old_s, new_s)) {
+-        // we succeded in setting the new state
++        // we succeeded in setting the new state
+         break;
+       }
+     }
+diff --git a/proxy/logging/LogObject.cc b/proxy/logging/LogObject.cc
+index c745bdd..f930675 100644
+--- a/proxy/logging/LogObject.cc
++++ b/proxy/logging/LogObject.cc
+@@ -409,7 +409,7 @@ LogObject::_checkout_write(size_t *write_offset, size_t bytes_needed)
+ 
+     switch (result_code) {
+     case LogBuffer::LB_OK:
+-      // checkout succeded
++      // checkout succeeded
+       retry = false;
+       break;
+ 
+diff --git a/src/traffic_cache_tool/CacheTool.cc b/src/traffic_cache_tool/CacheTool.cc
+index d6218ed..b4ede80 100644
 --- a/src/traffic_cache_tool/CacheTool.cc
 +++ b/src/traffic_cache_tool/CacheTool.cc
 @@ -867,7 +867,7 @@ Span::updateHeader()
@@ -543,9 +863,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
    }
    return zret;
  }
+diff --git a/src/traffic_crashlog/traffic_crashlog.cc b/src/traffic_crashlog/traffic_crashlog.cc
+index c2848f9..42aff7a 100644
 --- a/src/traffic_crashlog/traffic_crashlog.cc
 +++ b/src/traffic_crashlog/traffic_crashlog.cc
-@@ -198,7 +198,7 @@ main(int /* argc ATS_UNUSED */, const ch
+@@ -198,7 +198,7 @@ main(int /* argc ATS_UNUSED */, const char **argv)
    mgmterr = TSInit(nullptr, (TSInitOptionT)(TS_MGMT_OPT_NO_EVENTS | TS_MGMT_OPT_NO_SOCK_TESTS));
    if (mgmterr != TS_ERR_OKAY) {
      char *msg = TSGetErrorMessage(mgmterr);
@@ -554,9 +876,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      TSfree(msg);
    }
  
+diff --git a/src/traffic_logstats/logstats.cc b/src/traffic_logstats/logstats.cc
+index 72885e1..263292d 100644
 --- a/src/traffic_logstats/logstats.cc
 +++ b/src/traffic_logstats/logstats.cc
-@@ -1828,7 +1828,7 @@ process_file(int in_fd, off_t offset, un
+@@ -1828,7 +1828,7 @@ process_file(int in_fd, off_t offset, unsigned max_age)
      unsigned second_read_size = sizeof(LogBufferHeader) - first_read_size;
      nread                     = read(in_fd, &buffer[first_read_size], second_read_size);
      if (!nread || EOF == nread) {
@@ -565,6 +889,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
              first_read_size, errno);
        return 1;
      }
+diff --git a/src/traffic_manager/traffic_manager.cc b/src/traffic_manager/traffic_manager.cc
+index f1d47f0..95bad2a 100644
 --- a/src/traffic_manager/traffic_manager.cc
 +++ b/src/traffic_manager/traffic_manager.cc
 @@ -142,7 +142,7 @@ rotateLogs()
@@ -576,6 +902,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      }
    }
  }
+diff --git a/src/traffic_server/CoreUtils.h b/src/traffic_server/CoreUtils.h
+index f481729..2a1000b 100644
 --- a/src/traffic_server/CoreUtils.h
 +++ b/src/traffic_server/CoreUtils.h
 @@ -44,7 +44,7 @@
@@ -596,9 +924,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          the stack */
  
  // contains local and in registers, frame pointer, and stack base
+diff --git a/src/traffic_server/InkAPITest.cc b/src/traffic_server/InkAPITest.cc
+index 6193a0b..09aa44c 100644
 --- a/src/traffic_server/InkAPITest.cc
 +++ b/src/traffic_server/InkAPITest.cc
-@@ -4225,7 +4225,7 @@ REGRESSION_TEST(SDK_API_TSHttpHdr)(Regre
+@@ -4225,7 +4225,7 @@ REGRESSION_TEST(SDK_API_TSHttpHdr)(RegressionTest *test, int /* atype ATS_UNUSED
          SDK_RPRINT(test, "TSHttpHdrUrlSet&Get", "TestCase1", TC_FAIL, "TSHttpHdrUrlSet returns TS_ERROR");
        } else {
          if (TSHttpHdrUrlGet(bufp1, hdr_loc1, &url_loc_Get) != TS_SUCCESS) {
@@ -607,6 +937,8 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
          } else {
            if (url_loc == url_loc_Get) {
              SDK_RPRINT(test, "TSHttpHdrUrlSet&Get", "TestCase1", TC_PASS, "ok");
+diff --git a/src/tscore/ArgParser.cc b/src/tscore/ArgParser.cc
+index 6b41bb6..1a5c8be 100644
 --- a/src/tscore/ArgParser.cc
 +++ b/src/tscore/ArgParser.cc
 @@ -154,7 +154,7 @@ ArgParser::parse(const char **argv)
@@ -618,117 +950,11 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
      for (auto it : args) {
        msg = msg + " '" + it + "'";
      }
---- a/iocore/net/Socks.cc
-+++ b/iocore/net/Socks.cc
-@@ -694,7 +694,7 @@ socks5PasswdAuthHandler(int event, unsig
-     // NEC thinks it is 5 RFC seems to indicate 1.
-     switch (p[1]) {
-     case 0:
--      Debug("Socks", "Username/Passwd succeded");
-+      Debug("Socks", "Username/Passwd succeeded");
-       *h_ptr = nullptr;
-       break;
- 
---- a/iocore/net/UnixUDPNet.cc
-+++ b/iocore/net/UnixUDPNet.cc
-@@ -628,7 +628,7 @@ UDPNetProcessor::CreateUDPSocket(int *re
-     }
- 
-     if ((res = safe_getsockname(fd, &local_addr.sa, &local_addr_len)) < 0) {
--      Debug("udpnet", "CreateUdpsocket: getsockname didnt' work");
-+      Debug("udpnet", "CreateUdpsocket: getsockname didn't work");
-       goto HardError;
-     }
-   }
---- a/mgmt/Rollback.cc
-+++ b/mgmt/Rollback.cc
-@@ -133,7 +133,7 @@ Rollback::Rollback(const char *fileName_
-           mgmt_log("[RollBack::Rollback] Automatic Rollback to prior version failed for %s : %s\n", fileName, strerror(errno));
-           needZeroLength = true;
-         } else {
--          mgmt_log("[RollBack::Rollback] Automatic Rollback to version succeded for %s\n", fileName, strerror(errno));
-+          mgmt_log("[RollBack::Rollback] Automatic Rollback to version succeeded for %s\n", fileName, strerror(errno));
-           needZeroLength = false;
-           highestSeen--;
-           // Since we've made the highestVersion active
---- a/proxy/logging/LogBuffer.cc
-+++ b/proxy/logging/LogBuffer.cc
-@@ -270,7 +270,7 @@ LogBuffer::checkout_write(size_t *write_
-       }
- 
-       if (switch_state(old_s, new_s)) {
--        // we succeded in setting the new state
-+        // we succeeded in setting the new state
-         break;
-       }
-     }
---- a/proxy/logging/LogObject.cc
-+++ b/proxy/logging/LogObject.cc
-@@ -409,7 +409,7 @@ LogObject::_checkout_write(size_t *write
- 
-     switch (result_code) {
-     case LogBuffer::LB_OK:
--      // checkout succeded
-+      // checkout succeeded
-       retry = false;
-       break;
- 
---- a/doc/admin-guide/plugins/header_rewrite.en.rst
-+++ b/doc/admin-guide/plugins/header_rewrite.en.rst
-@@ -330,7 +330,7 @@ The data that can be checked is ::
-    %{INBOUND:REMOTE-PORT}     The client port for the connection.
-    %{INBOUND:TLS}             The TLS protocol if the connection is over TLS, otherwise the empty string.
-    %{INBOUND:H2}              The string "h2" if the connection is HTTP/2, otherwise the empty string.
--   %{INBOUND:IPV4}            The string "ipv4" if the connection is IPv4, otherwise the emtpy string.
-+   %{INBOUND:IPV4}            The string "ipv4" if the connection is IPv4, otherwise the empty string.
-    %{INBOUND:IPV6}            The string "ipv6" if the connection is IPv6, otherwise the empty string.
-    %{INBOUND:IP-FAMILY}       The IP family, either "ipv4" or "ipv6".
-    %{INBOUND:STACK}           The full protocol stack separated by ','.
-@@ -827,7 +827,7 @@ Variable                Description
- %<INBOUND:TLS>          The TLS protocol for the inbound connection if it is over TLS, otherwise the
-                         empty string.
- %<INBOUND:H2>           The string "h2" if the inbound connection is HTTP/2, otherwise the empty string.
--%<INBOUND:IPV4>         The string "ipv4" if the inbound connection is IPv4, otherwise the emtpy string.
-+%<INBOUND:IPV4>         The string "ipv4" if the inbound connection is IPv4, otherwise the empty string.
- %<INBOUND:IPV6>         The string "ipv6" if the inbound connection is IPv6, otherwise the empty string.
- %<INBOUND:IP-FAMILY>    The IP family of the inbound connection (either "ipv4" or "ipv6").
- %<INBOUND:STACK>        The full protocol stack of the inbound connection separated by ','.
---- a/iocore/dns/SplitDNS.cc
-+++ b/iocore/dns/SplitDNS.cc
-@@ -341,7 +341,7 @@ SplitDNSRecord::ProcessDNSHosts(char *va
-       if (tmp - current > (MAXDNAME - 1)) {
-         return "DNS server name (ip) is too long";
-       } else if (tmp - current == 0) {
--        return "server string is emtpy";
-+        return "server string is empty";
-       }
-       *tmp = 0;
-     }
---- a/lib/records/RecHttp.cc
-+++ b/lib/records/RecHttp.cc
-@@ -410,7 +410,7 @@ HttpProxyPort::processOptions(const char
-     if (in_ip_set_p && m_family != m_inbound_ip.family()) {
-       std::string_view iname{ats_ip_family_name(m_inbound_ip.family())};
-       std::string_view fname{ats_ip_family_name(m_family)};
--      Warning("Invalid port descriptor '%s' - the inbound adddress family [%.*s] is not the same type as the explicit family value "
-+      Warning("Invalid port descriptor '%s' - the inbound address family [%.*s] is not the same type as the explicit family value "
-               "[%.*s]",
-               opts, static_cast<int>(iname.size()), iname.data(), static_cast<int>(fname.size()), fname.data());
-       zret = false;
---- a/proxy/ParentSelection.cc
-+++ b/proxy/ParentSelection.cc
-@@ -491,7 +491,7 @@ ParentRecord::ProcessParents(char *val,
-       errPtr = "Parent hostname is too long";
-       goto MERROR;
-     } else if (tmp - current == 0) {
--      errPtr = "Parent string is emtpy";
-+      errPtr = "Parent string is empty";
-       goto MERROR;
-     }
-     // Update the pRecords
+diff --git a/src/tscore/HostLookup.cc b/src/tscore/HostLookup.cc
+index 8d9abcc..b11c259 100644
 --- a/src/tscore/HostLookup.cc
 +++ b/src/tscore/HostLookup.cc
-@@ -50,7 +50,7 @@ domaincmp(const char *hostname, const ch
+@@ -50,7 +50,7 @@ domaincmp(const char *hostname, const char *domain)
    const char *host_cur   = hostname + strlen(hostname);
    const char *domain_cur = domain + strlen(domain);
  
@@ -737,7 +963,7 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
    //  argument.  Empty strings do not match anything
    //
    if (domain_cur == domain || host_cur == hostname) {
-@@ -380,7 +380,7 @@ charIndex::Insert(const char *match_data
+@@ -380,7 +380,7 @@ charIndex::Insert(const char *match_data, HostBranch *toInsert)
  
      // Check to see if are at the level we supposed be at
      if (*(match_data + 1) == '\0') {
@@ -746,122 +972,3 @@ This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
        //   keys are allowed
        ink_assert(cur->branch_array[index] == nullptr);
        cur->branch_array[index] = toInsert;
---- a/build/pkg.m4
-+++ b/build/pkg.m4
-@@ -53,7 +53,7 @@ fi[]dnl
- # to PKG_CHECK_MODULES(), but does not set variables or print errors.
- #
- # Please remember that m4 expands AC_REQUIRE([PKG_PROG_PKG_CONFIG])
--# only at the first occurence in configure.ac, so if the first place
-+# only at the first occurrence in configure.ac, so if the first place
- # it's called might be skipped (such as if it is within an "if", you
- # have to call PKG_CHECK_EXISTS manually
- # --------------------------------------------------------------
---- a/doc/admin-guide/files/logging.yaml.en.rst
-+++ b/doc/admin-guide/files/logging.yaml.en.rst
-@@ -258,7 +258,7 @@ inconsequentially variable parameters th
- reporting from log analyzers.
- 
- Multiple query parameters may be listed, separated by spaces, though only the
--first occurence of each will be wiped from the query string if any individual
-+first occurrence of each will be wiped from the query string if any individual
- parameter appears more than once in the URL.
- 
- .. _admin-custom-logs-logs:
---- a/include/tscpp/util/TextView.h
-+++ b/include/tscpp/util/TextView.h
-@@ -264,7 +264,7 @@ public:
-   self_type prefix(size_t n) const;
-   /// Convenience overload to avoid ambiguity for literal numbers.
-   self_type prefix(int n) const;
--  /** Get the prefix delimited by the first occurence of the character @a c.
-+  /** Get the prefix delimited by the first occurrence of the character @a c.
- 
-       If @a c is not found the entire view is returned.
-       The delimiter character is not included in the returned view.
-@@ -272,7 +272,7 @@ public:
-       @return A view of the prefix.
-   */
-   self_type prefix(char c) const;
--  /** Get the prefix delimited by the first occurence of a character in @a delimiters.
-+  /** Get the prefix delimited by the first occurrence of a character in @a delimiters.
- 
-       If no such character is found the entire view is returned.
-       The delimiter character is not included in the returned view.
---- a/iocore/cache/CacheVol.cc
-+++ b/iocore/cache/CacheVol.cc
-@@ -400,7 +400,7 @@ CacheVC::scanOpenWrite(int /* event ATS_
-   // get volume lock
-   if (writer_lock_retry > SCAN_WRITER_LOCK_MAX_RETRY) {
-     int r = _action.continuation->handleEvent(CACHE_EVENT_SCAN_OPERATION_BLOCKED, nullptr);
--    Debug("cache_scan", "still havent got the writer lock, asking user..");
-+    Debug("cache_scan", "still haven't got the writer lock, asking user..");
-     switch (r) {
-     case CACHE_SCAN_RESULT_RETRY:
-       writer_lock_retry = 0;
---- a/iocore/eventsystem/I_IOBuffer.h
-+++ b/iocore/eventsystem/I_IOBuffer.h
-@@ -697,7 +697,7 @@ public:
-   /**
-     Perform a memchr() across the list of IOBufferBlocks. Returns the
-     offset from the current start point of the reader to the first
--    occurence of character 'c' in the buffer.
-+    occurrence of character 'c' in the buffer.
- 
-     @param c character to look for.
-     @param len number of characters to check. If len exceeds the number
---- a/iocore/net/OCSPStapling.cc
-+++ b/iocore/net/OCSPStapling.cc
-@@ -89,7 +89,7 @@ stapling_get_issuer(SSL_CTX *ssl_ctx, X5
- 
- #ifdef SSL_CTX_select_current_cert
-   if (!SSL_CTX_select_current_cert(ssl_ctx, x)) {
--    Warning("OCSP: could not select current certifcate chain %p", x);
-+    Warning("OCSP: could not select current certificate chain %p", x);
-   }
- #endif
- 
---- a/mgmt/Alarms.cc
-+++ b/mgmt/Alarms.cc
-@@ -297,7 +297,7 @@ Alarms::signalAlarm(alarm_t a, const cha
-     (*(func))(a, ip, desc);
-   }
- 
--  /* Priority 2 alarms get signalled if they are the first unsolved occurence. */
-+  /* Priority 2 alarms get signalled if they are the first unsolved occurrence. */
-   if (priority == 2 && !ip) {
-     execAlarmBin(desc);
-   }
---- a/proxy/http/HttpSessionManager.cc
-+++ b/proxy/http/HttpSessionManager.cc
-@@ -204,7 +204,7 @@ ServerSessionPool::eventHandler(int even
-         if (connection_count_below_min) {
-           Debug("http_ss",
-                 "[%" PRId64 "] [session_bucket] session received io notice [%s], "
--                "reseting timeout to maintain minimum number of connections",
-+                "resetting timeout to maintain minimum number of connections",
-                 s->con_id, HttpDebugNames::get_event_name(event));
-           s->get_netvc()->set_inactivity_timeout(s->get_netvc()->get_inactivity_timeout());
-           s->get_netvc()->set_active_timeout(s->get_netvc()->get_active_timeout());
---- a/plugins/lua/ts_lua_transform.c
-+++ b/plugins/lua/ts_lua_transform.c
-@@ -89,7 +89,7 @@ ts_lua_transform_handler(TSCont contp, t
-   empty_input = 0;
-   if (!TSVIOBufferGet(input_vio)) {
-     if (transform_ctx->output.vio) {
--      TSDebug(TS_LUA_DEBUG_TAG, "[%s] reenabling ouput VIO after input VIO does not exist", __FUNCTION__);
-+      TSDebug(TS_LUA_DEBUG_TAG, "[%s] reenabling output VIO after input VIO does not exist", __FUNCTION__);
-       TSVIONBytesSet(transform_ctx->output.vio, transform_ctx->total);
-       TSVIOReenable(transform_ctx->output.vio);
-       return 0;
---- a/proxy/hdrs/HdrHeap.cc
-+++ b/proxy/hdrs/HdrHeap.cc
-@@ -950,7 +950,7 @@ HdrHeap::unmarshal(int buf_length, int o
-       // Nothing to do
-       break;
-     default:
--      fprintf(stderr, "WARNING: Unmarshal failed due to unknow obj type %d after %d bytes", (int)obj->m_type,
-+      fprintf(stderr, "WARNING: Unmarshal failed due to unknown obj type %d after %d bytes", (int)obj->m_type,
-               (int)(obj_data - (char *)this));
-       dump_heap(unmarshal_size);
-       return -1;
