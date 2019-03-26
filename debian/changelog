@@ -1,3 +1,9 @@
+trafficserver (8.0.3-1ubuntu1ppa2~18.04.1) bionic; urgency=medium
+
+  * New upload to Ubuntu PPA
+
+ -- Hiroaki Nakamura <hnakamur@gmail.com>  Tue, 26 Mar 2019 13:59:53 +0900
+
 trafficserver (8.0.3-1ubuntu1ppa1~18.04.1) bionic; urgency=medium
 
   * New upstream version 8.0.3
