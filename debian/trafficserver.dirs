@@ -1,3 +1,4 @@
 /var/cache/trafficserver
 /var/log/trafficserver
 /var/run/trafficserver
+/opt/trafficerver/var
