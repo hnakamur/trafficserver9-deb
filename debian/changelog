@@ -1,3 +1,9 @@
+trafficserver (8.0.3-1ubuntu1ppa4~18.04.1) bionic; urgency=medium
+
+  * Update scripts to /opt/trafficserver/etc
+
+ -- Hiroaki Nakamura <hnakamur@gmail.com>  Tue, 09 Apr 2019 17:43:50 +0900
+
 trafficserver (8.0.3-1ubuntu1ppa3~18.04.1) bionic; urgency=medium
 
   * Enable /opt layout and add patches
