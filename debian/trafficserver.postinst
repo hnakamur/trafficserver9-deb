@@ -67,6 +67,14 @@ configure)
 		    dpkg-statoverride --update --add "$USER" "$GROUP" 0755 /opt/trafficserver/etc
 		fi
 
+		if ! dpkg-statoverride --list /opt/trafficserver/var >/dev/null 2>&1; then
+		    dpkg-statoverride --update --add "$USER" "$GROUP" 0755 /opt/trafficserver/var
+		fi
+
+		if ! dpkg-statoverride --list /opt/trafficserver/var/cache >/dev/null 2>&1; then
+		    dpkg-statoverride --update --add "$USER" "$GROUP" 0755 /opt/trafficserver/var/cache
+		fi
+
 		if ! dpkg-statoverride --list /var/log/trafficserver >/dev/null 2>&1; then
 			dpkg-statoverride --update --add "$USER" adm 0750 /var/log/trafficserver
 		fi
