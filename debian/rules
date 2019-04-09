@@ -18,15 +18,29 @@ include /usr/share/dpkg/architecture.mk
 include /usr/share/dpkg/pkg-info.mk
 
 configure_flags = \
-	--enable-layout=Debian \
-	--sysconfdir=/etc/trafficserver --libdir=/usr/lib/trafficserver \
+	--enable-layout=opt \
+	--prefix=/opt/trafficserver \
+	--includedir=/usr/include \
+	--datarootdir=/usr/share \
+	--datadir=/usr/share \
+	--infodir=/usr/share/info \
+	--localedir=/usr/share/locale \
+	--mandir=/usr/share/man \
+	--docdir=/usr/share/doc/trafficserver \
+	--htmldir=/usr/share/doc/trafficserver \
+	--dvidir=/usr/share/doc/trafficserver \
+	--pdfdir=/usr/share/doc/trafficserver \
+	--psdir=/usr/share/doc/trafficserver \
+	--exec-prefix=/usr \
+	--sysconfdir=/opt/trafficserver/etc --libdir=/usr/lib/trafficserver \
+	--localstatedir=/opt/trafficserver/var \
 	--libexecdir=/usr/lib/trafficserver/modules \
 	--with-user=root --with-group=root --disable-silent-rules \
 	--enable-experimental-plugins --enable-32bit-build \
 	--enable-mime-sanity-check --enable-docs \
 	--with-build-version=$(DEB_VERSION) \
 	--with-yaml-cpp=/usr \
-        $(shell dpkg-buildflags --export=configure)
+	$(shell dpkg-buildflags --export=configure)
 
 ifeq ($(DEB_HOST_ARCH_OS),linux)
 	configure_flags += --enable-wccp
@@ -54,7 +68,7 @@ endif
 override_dh_install:
 	dh_install
 	dh_missing --list-missing
-	./debian/change_config.pl debian/trafficserver/etc/trafficserver/records.config
+	./debian/change_config.pl debian/trafficserver/opt/trafficserver/etc/records.config
 	# Lintian fixes
 	mkdir -p debian/trafficserver/usr/share/doc/trafficserver
 	cat CHANGELOG-* >> debian/trafficserver/usr/share/doc/trafficserver/changelog

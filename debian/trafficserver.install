@@ -1,6 +1,6 @@
 usr/bin/traffic_*
 usr/bin/tspush
-etc/trafficserver/*
+opt/trafficserver/etc/*
 usr/lib/trafficserver/lib*.so.*
 usr/lib/trafficserver/modules/authproxy.so
 usr/lib/trafficserver/modules/background_fetch.so
@@ -23,4 +23,4 @@ usr/lib/trafficserver/modules/tcpinfo.so
 usr/lib/trafficserver/modules/test_cppapi.so
 usr/lib/trafficserver/modules/tslua.so
 usr/lib/trafficserver/modules/xdebug.so
-usr/lib/perl5/* usr/share/perl5/
+opt/trafficserver/lib/perl5/* usr/share/perl5/

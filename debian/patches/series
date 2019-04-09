@@ -8,3 +8,7 @@
 0013-fix-perl-interpreter-path.patch
 0014-use_system_yaml-cpp.patch
 as-needed-fix.patch
+
+# custom patches
+Add-config-value-for-caching-only-when-Cache-Control.patch
+Serve-a-stale-cache-even-if-s-maxage-is-specified.patch
