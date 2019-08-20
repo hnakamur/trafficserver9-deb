@@ -1,3 +1,9 @@
+trafficserver (8.0.4-1ubuntu1ppa1~bionic) bionic; urgency=medium
+
+  * New upstream version 8.0.4
+
+ -- Hiroaki Nakamura <hnakamur@gmail.com>  Tue, 20 Aug 2019 14:00:52 +0900
+
 trafficserver (8.0.3-1ubuntu1ppa5~18.04.1) bionic; urgency=medium
 
   * Create /opt/trafficerver/var/cache directory on install
