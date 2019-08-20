@@ -9,11 +9,9 @@ Subject: [PATCH 1/2] Add config value for caching only when Cache-Control:
  proxy/http/HttpTransact.cc | 8 ++++++++
  2 files changed, 12 insertions(+), 1 deletion(-)
 
-diff --git a/proxy/http/HttpConfig.h b/proxy/http/HttpConfig.h
-index 93dd2ebf..03301461 100644
 --- a/proxy/http/HttpConfig.h
 +++ b/proxy/http/HttpConfig.h
-@@ -782,7 +782,10 @@ public:
+@@ -782,7 +782,10 @@
    enum {
      CACHE_REQUIRED_HEADERS_NONE                   = 0,
      CACHE_REQUIRED_HEADERS_AT_LEAST_LAST_MODIFIED = 1,
@@ -25,11 +23,9 @@ index 93dd2ebf..03301461 100644
    };
  
    enum {
-diff --git a/proxy/http/HttpTransact.cc b/proxy/http/HttpTransact.cc
-index 5fd11e83..155e8f0c 100644
 --- a/proxy/http/HttpTransact.cc
 +++ b/proxy/http/HttpTransact.cc
-@@ -6042,6 +6042,14 @@ HttpTransact::is_response_cacheable(State *s, HTTPHdr *request, HTTPHdr *respons
+@@ -6060,6 +6060,14 @@
          }
          break;
  
@@ -44,6 +40,3 @@ index 5fd11e83..155e8f0c 100644
        default:
          break;
        }
--- 
-2.17.1
-
