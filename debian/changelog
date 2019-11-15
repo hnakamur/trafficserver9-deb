@@ -1,3 +1,9 @@
+trafficserver (8.0.5-1ubuntu1ppa2~bionic) bionic; urgency=medium
+
+  * Enable brotli support
+
+ -- Hiroaki Nakamura <hnakamur@gmail.com>  Fri, 15 Nov 2019 14:06:20 +0900
+
 trafficserver (8.0.5-1ubuntu1ppa1~bionic) bionic; urgency=medium
 
   * New upstream version 8.0.5
