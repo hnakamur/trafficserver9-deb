@@ -40,6 +40,7 @@ configure_flags = \
 	--enable-mime-sanity-check --enable-docs \
 	--with-build-version=$(DEB_VERSION) \
 	--with-yaml-cpp=/usr \
+	--with-brotli=/usr/include \
 	$(shell dpkg-buildflags --export=configure)
 
 ifeq ($(DEB_HOST_ARCH_OS),linux)
