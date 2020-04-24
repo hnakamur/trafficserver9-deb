@@ -30,16 +30,16 @@ index 537afcb..d63a126 100644
 +``method`` keyword, each specifying a single method. E.g., ``method=GET|HEAD`` is the same as
  ``method=GET method=HEAD``. The method names are not validated which means non-standard method names
  can be specified.
- 
+
 @@ -104,7 +104,7 @@ If the entire subnet were to be denied, that would be::
- 
+
     src_ip=123.45.6.0/24 action=ip_deny
- 
+
 -The following example allows to any upstream servers::
 +The following example allows one to any upstream servers::
- 
+
     dest_ip=0.0.0.0-255.255.255.255 action=ip_allow
- 
+
 diff --git a/doc/admin-guide/files/parent.config.en.rst b/doc/admin-guide/files/parent.config.en.rst
 index 3a26e95..4b2a98f 100644
 --- a/doc/admin-guide/files/parent.config.en.rst
@@ -54,16 +54,16 @@ index 3a26e95..4b2a98f 100644
        parent is marked down and a new parent is selected to retry the request.  The number of
        retries is controlled by ``max_unavailable_server_retries`` which is set to 1 by default.
 @@ -220,7 +220,7 @@ The following list shows the possible actions and their allowed values.
- 
+
  ``max_simple_retries``
    By default the value for ``max_simple_retries`` is 1.  It may be set to any value in the range 1 to 5.
 -  If ``parent_retry`` is set to ``simple_retry`` or ``both`` a 404 reponse
 +  If ``parent_retry`` is set to ``simple_retry`` or ``both`` a 404 response
    from a parent origin server will cause the request to be retried using a new parent at most 1 to 5
    times as configured by ``max_simple_retries``.
- 
+
 @@ -228,7 +228,7 @@ The following list shows the possible actions and their allowed values.
- 
+
  ``max_unavailable_server_retries``
    By default the value for ``max_unavailable_server_retries`` is 1.  It may be set to any value in the range 1 to 5.
 -  If ``parent_retry`` is set to ``unavailable_server_retries`` or ``both`` a 503 reponse
@@ -87,7 +87,7 @@ index 2cfd2a6..c0377d2 100644
 @@ -1603,7 +1603,7 @@ Proxy User Variables
     connection=full     Full user agent connection :ref:`protocol tags <protocol_tags>`
     ==================  ===============================================================
- 
+
 -   Each paramater in the list must be separated by ``|`` or ``:``.  For example, ``for|by=uuid|proto`` is
 +   Each parameter in the list must be separated by ``|`` or ``:``.  For example, ``for|by=uuid|proto`` is
     a valid value for this variable.  Note that the ``connection`` parameter is a non-standard extension to
@@ -96,43 +96,34 @@ index 2cfd2a6..c0377d2 100644
 @@ -1631,7 +1631,7 @@ Proxy User Variables
         information.
         See :ts:cv:`proxy.config.http.server_ports` for information on how to enable Proxy Protocol on a port.
- 
+
 -   See :ref:`proxy-protocol` for more discussion on how |TS| tranforms the `Forwarded: header.
 +   See :ref:`proxy-protocol` for more discussion on how |TS| transforms the `Forwarded: header.
- 
+
  .. ts:cv:: CONFIG proxy.config.http.normalize_ae INT 1
     :reloadable:
 @@ -2332,7 +2332,7 @@ DNS
- 
+
  .. ts:cv:: CONFIG proxy.config.dns.resolv_conf STRING /etc/resolv.conf
- 
+
 -   Allows to specify which ``resolv.conf`` file to use for finding resolvers. While the format of this file must be the same as the
 +   Allows one to specify which ``resolv.conf`` file to use for finding resolvers. While the format of this file must be the same as the
     standard ``resolv.conf`` file, this option allows an administrator to manage the set of resolvers in an external configuration file,
     without affecting how the rest of the operating system uses DNS.
- 
-@@ -2350,7 +2350,7 @@ DNS
-    :reloadable:
-    :overridable:
- 
--   Indicates whether to use SRV records for orgin server lookup.
-+   Indicates whether to use SRV records for origin server lookup.
- 
- .. ts:cv:: CONFIG proxy.config.dns.dedicated_thread INT 0
- 
+
 @@ -2583,7 +2583,7 @@ HostDB
     Set the frequency (in seconds) to sync hostdb to disk.
- 
+
     Note: hostdb is syncd to disk on a per-partition basis (of which there are 64).
 -   This means that the minumum time to sync all data to disk is :ts:cv:`proxy.config.cache.hostdb.sync_frequency` * 64
 +   This means that the minimum time to sync all data to disk is :ts:cv:`proxy.config.cache.hostdb.sync_frequency` * 64
- 
+
  Logging Configuration
  =====================
 @@ -2897,7 +2897,7 @@ Diagnostic Logging Configuration
- 
+
  .. ts:cv:: CONFIG proxy.config.diags.debug.tags STRING http|dns
- 
+
 -   Each |TS| `diag` and `debug` level message is annotated with a subsytem tag.  This configuration
 +   Each |TS| `diag` and `debug` level message is annotated with a subsystem tag.  This configuration
     contains an anchored regular expression that filters the messages based on the tag. The
@@ -140,7 +131,7 @@ index 2cfd2a6..c0377d2 100644
     value ``http|dns`` will match tags such as ``http``, ``http_hdrs``, ``dns``, and ``dns_recv``.
 @@ -2905,7 +2905,7 @@ Diagnostic Logging Configuration
     Some commonly used debug tags are:
- 
+
     ============  =====================================================
 -   Tag           Subsytem usage
 +   Tag           Subsystem usage
@@ -149,7 +140,7 @@ index 2cfd2a6..c0377d2 100644
     http_hdrs     Logs the headers for HTTP requests and responses
 @@ -3061,7 +3061,7 @@ SSL Termination
  .. ts:cv:: CONFIG proxy.config.ssl.client.groups_list STRING <See notes under proxy.config.ssl.server.groups_list.>
- 
+
     Configures the list of supported groups provided by OpenSSL which
 -   |TS| will use for the "key_share" and "supported groups" extention
 +   |TS| will use for the "key_share" and "supported groups" extension
@@ -164,18 +155,18 @@ index 2cfd2a6..c0377d2 100644
 +         implementation should perform much better than the OpenSSL
           implementation.
     ===== ======================================================================
- 
+
 diff --git a/doc/admin-guide/files/remap.config.en.rst b/doc/admin-guide/files/remap.config.en.rst
 index bbd5f6d..bd7ee3d 100644
 --- a/doc/admin-guide/files/remap.config.en.rst
 +++ b/doc/admin-guide/files/remap.config.en.rst
 @@ -415,7 +415,7 @@ Acl Filters
- 
+
  Acl filters can be created to control access of specific remap lines. The markup
  is very similar to that of :file:`ip_allow.config`, with slight changes to
 -accomodate remap markup
 +accommodate remap markup
- 
+
  Examples
  --------
 diff --git a/doc/admin-guide/files/storage.config.en.rst b/doc/admin-guide/files/storage.config.en.rst
@@ -184,11 +175,11 @@ index 943dc94..91b72b5 100644
 +++ b/doc/admin-guide/files/storage.config.en.rst
 @@ -92,7 +92,7 @@ which will effectively clear most of the cache. This can be problem when drives
  reboot causes the path names to change.
- 
+
  The :arg:`id` option can be used to create a fixed string that an administrator can use to keep the
 -assignment table consistent by maintaing the mapping from physical device to base string even in the presence of hardware changes and failures.
 +assignment table consistent by maintaining the mapping from physical device to base string even in the presence of hardware changes and failures.
- 
+
  Examples
  ========
 diff --git a/doc/admin-guide/plugins/header_rewrite.en.rst b/doc/admin-guide/plugins/header_rewrite.en.rst
@@ -220,10 +211,10 @@ index 7bc4797..cfbd571 100644
 @@ -255,7 +255,7 @@ traffic_ctl host
  .. program:: traffic_ctl host
  .. option:: status HOSTNAME [HOSTNAME ...]
- 
+
 -    Get the current status of the hosts used in parent.config as a next hop in a multi-tiered cache heirarchy.  The value 0 or 1 is returned indicating that the host is marked as down '0' or marked as up '1'.  If a host is marked as down, it will not be used as the next hop parent, another host marked as up will be chosen.
 +    Get the current status of the hosts used in parent.config as a next hop in a multi-tiered cache hierarchy.  The value 0 or 1 is returned indicating that the host is marked as down '0' or marked as up '1'.  If a host is marked as down, it will not be used as the next hop parent, another host marked as up will be chosen.
- 
+
  .. program:: traffic_ctl host
  .. option:: down --time seconds HOSTNAME [HOSTNAME ...]
 diff --git a/doc/developer-guide/api/functions/TSCacheRemove.en.rst b/doc/developer-guide/api/functions/TSCacheRemove.en.rst
@@ -242,32 +233,32 @@ index 27820cd..944a481 100644
 +++ b/doc/developer-guide/api/functions/TSContSchedule.en.rst
 @@ -32,7 +32,7 @@ Description
  ===========
- 
+
  Schedules :arg:`contp` to run :arg:`delay` milliseconds in the future. This is approximate. The delay
 -will be at least :arg:`delay` but possibly more. Resultions finer than roughly 5 milliseconds will
 +will be at least :arg:`delay` but possibly more. Resolutions finer than roughly 5 milliseconds will
  not be effective. :arg:`contp` is required to have a mutex, which is provided to
  :func:`TSContCreate`.
- 
+
 diff --git a/doc/developer-guide/api/functions/TSHttpConnectWithPluginId.en.rst b/doc/developer-guide/api/functions/TSHttpConnectWithPluginId.en.rst
 index 88e805c..0f6186f 100644
 --- a/doc/developer-guide/api/functions/TSHttpConnectWithPluginId.en.rst
 +++ b/doc/developer-guide/api/functions/TSHttpConnectWithPluginId.en.rst
 @@ -79,7 +79,7 @@ virtual connection.
- 
+
  The combination of :arg:`tag` and :arg:`id` is intended to enable correlation
  in log post processing. The :arg:`tag` identifies the connection as related
 -to the plugin and the :arg:`id` can be used in conjuction with plugin
 +to the plugin and the :arg:`id` can be used in conjunction with plugin
  generated logs to correlate the log records.
- 
+
  Notes
 diff --git a/doc/developer-guide/api/functions/TSHttpOverridableConfig.en.rst b/doc/developer-guide/api/functions/TSHttpOverridableConfig.en.rst
 index 4ea4be4..c08925e 100644
 --- a/doc/developer-guide/api/functions/TSHttpOverridableConfig.en.rst
 +++ b/doc/developer-guide/api/functions/TSHttpOverridableConfig.en.rst
 @@ -43,7 +43,7 @@ Description
- 
+
  Some of the values that are set in :file:`records.config` can be changed for a
  specific transaction. It is important to note that these functions change the
 -configuration values stored for the transation, which is not quite the same as
@@ -290,13 +281,13 @@ index 08fb5d3..1c0ee73 100644
 --- a/doc/developer-guide/api/functions/TSHttpTxnMilestoneGet.en.rst
 +++ b/doc/developer-guide/api/functions/TSHttpTxnMilestoneGet.en.rst
 @@ -138,7 +138,7 @@ is successful.
- 
+
  	.. macro:: TS_MILESTONE_LAST_ENTRY
- 
+
 -		A psuedo index which is set to be one more than the last valid index. This is useful for looping over the data.
 +		A pseudo index which is set to be one more than the last valid index. This is useful for looping over the data.
- 
- 
+
+
  *  The server connect times predate the transmission of the :literal:`SYN`
 diff --git a/doc/developer-guide/api/functions/TSHttpTxnServerIntercept.en.rst b/doc/developer-guide/api/functions/TSHttpTxnServerIntercept.en.rst
 index a546aa3..bc70ecc 100644
@@ -310,18 +301,18 @@ index a546aa3..bc70ecc 100644
 +to other protocols or to allow one to plugin to its own transport for the next hop
  to the server. :func:`TSHttpTxnServerIntercept` overrides parent cache
  configuration.
- 
+
 diff --git a/doc/developer-guide/api/functions/TSIOBufferReader.en.rst b/doc/developer-guide/api/functions/TSIOBufferReader.en.rst
 index 9591962..a5c5702 100644
 --- a/doc/developer-guide/api/functions/TSIOBufferReader.en.rst
 +++ b/doc/developer-guide/api/functions/TSIOBufferReader.en.rst
 @@ -59,7 +59,7 @@ has two very important consequences --
  *  Conversely keeping a reader around unused will pin the buffer data in memory. This can be useful or harmful.
- 
+
  A buffer has a fixed amount of possible readers (currently 5) which is determined at compile
 -time. Reader allocation is fast and cheap until this maxium is reached at which point it fails.
 +time. Reader allocation is fast and cheap until this maximum is reached at which point it fails.
- 
+
  :func:`TSIOBufferReaderAlloc` allocates a reader for the IO buffer :arg:`bufp`. This should only be
        called on a newly allocated buffer. If not the location of the reader in the buffer will be
 diff --git a/doc/developer-guide/api/functions/TSSslContext.en.rst b/doc/developer-guide/api/functions/TSSslContext.en.rst
@@ -330,37 +321,37 @@ index e921d5b..9337895 100644
 +++ b/doc/developer-guide/api/functions/TSSslContext.en.rst
 @@ -36,11 +36,11 @@ Description
  ===========
- 
+
  :func:`TSSslContextFindByName` searches for a SSL server context
 -created from :file:`ssl_multicert.config`, matching against the
 +created from :file:`ssl_multicert.config`, matchingg against the
  server :arg:`name`.
- 
+
  :func:`TSSslContextFindByAddr` searches for a SSL server context
 -created from :file:`ssl_multicert.config` matchin against the server
 +created from :file:`ssl_multicert.config` matching against the server
  :arg:`address`.
- 
- 
+
+
 diff --git a/doc/developer-guide/api/functions/TSSslSession.en.rst b/doc/developer-guide/api/functions/TSSslSession.en.rst
 index ebf9fcc..321f34f 100644
 --- a/doc/developer-guide/api/functions/TSSslSession.en.rst
 +++ b/doc/developer-guide/api/functions/TSSslSession.en.rst
 @@ -46,7 +46,7 @@ The functions also work with the :type:`TSSslSession` object which can be cast t
- 
+
  These functions perform the appropriate locking on the session cache to avoid errors.
- 
+
 -The :func:`TSSslSessionGet` and :func:`TSSslSessionGetBuffer` functions retreive the :type:`TSSslSession` object that is identifed by the
 +The :func:`TSSslSessionGet` and :func:`TSSslSessionGetBuffer` functions retrieve the :type:`TSSslSession` object that is identifed by the
  :type:`TSSslSessionID` object.  If there is no matching sesion object, :func:`TSSslSessionGet` returns NULL and :func:`TSSslSessionGetBuffer`
  returns 0.
- 
+
 diff --git a/doc/developer-guide/api/functions/TSStat.en.rst b/doc/developer-guide/api/functions/TSStat.en.rst
 index 43d585f..64b539f 100644
 --- a/doc/developer-guide/api/functions/TSStat.en.rst
 +++ b/doc/developer-guide/api/functions/TSStat.en.rst
 @@ -46,9 +46,9 @@ Description
- 
+
  A plugin statistic is created by :func:`TSStatCreate`. The :arg:`name` must be globally unique and
  should follow the standard dotted tag form. To avoid collisions and for easy of use the first tag
 -should be the plugin name or something easily derived from it. Currently only integers are suppored
@@ -370,19 +361,19 @@ index 43d585f..64b539f 100644
 +statistic. In general this should work but if it doesn't it will :code:`assert`. In particular,
  creating the same statistic twice will fail in this way, which can happen if statistics are created
  as part of or based on configuration files and |TS| is reloaded.
- 
+
 diff --git a/doc/developer-guide/api/functions/TSVConnReenable.en.rst b/doc/developer-guide/api/functions/TSVConnReenable.en.rst
 index 847c690..8ac6e0c 100644
 --- a/doc/developer-guide/api/functions/TSVConnReenable.en.rst
 +++ b/doc/developer-guide/api/functions/TSVConnReenable.en.rst
 @@ -32,7 +32,7 @@ Description
  ===========
- 
+
  Reenable the SSL connection :arg:`svc`. If a plugin hook is called, ATS
 -processing on that connnection will not resume until this is invoked for that
 +processing on that connection will not resume until this is invoked for that
  connection.
- 
+
  If the server is running OpenSSL 1.0.1 with the appropraite patch installed or
 diff --git a/doc/developer-guide/api/functions/TSfwrite.en.rst b/doc/developer-guide/api/functions/TSfwrite.en.rst
 index 30b33ae..3b064ac 100644
@@ -391,7 +382,7 @@ index 30b33ae..3b064ac 100644
 @@ -44,4 +44,4 @@ The behavior is undefined if length is greater than SSIZE_MAX.
  Return Value
  ============
- 
+
 -Returns the number of bytes actually written, or -1 if an error occured.
 +Returns the number of bytes actually written, or -1 if an error occurred.
 diff --git a/include/tscpp/util/TextView.h b/include/tscpp/util/TextView.h
@@ -404,7 +395,7 @@ index d4494cd..0713fac 100644
    self_type prefix(int n) const;
 -  /** Get the prefix delimited by the first occurence of the character @a c.
 +  /** Get the prefix delimited by the first occurrence of the character @a c.
- 
+
        If @a c is not found the entire view is returned.
        The delimiter character is not included in the returned view.
 @@ -272,7 +272,7 @@ public:
@@ -413,7 +404,7 @@ index d4494cd..0713fac 100644
    self_type prefix(char c) const;
 -  /** Get the prefix delimited by the first occurence of a character in @a delimiters.
 +  /** Get the prefix delimited by the first occurrence of a character in @a delimiters.
- 
+
        If no such character is found the entire view is returned.
        The delimiter character is not included in the returned view.
 diff --git a/iocore/cache/CacheHosting.cc b/iocore/cache/CacheHosting.cc
@@ -478,7 +469,7 @@ index ac652e3..3e031a2 100644
      offset from the current start point of the reader to the first
 -    occurence of character 'c' in the buffer.
 +    occurrence of character 'c' in the buffer.
- 
+
      @param c character to look for.
      @param len number of characters to check. If len exceeds the number
 diff --git a/iocore/net/OCSPStapling.cc b/iocore/net/OCSPStapling.cc
@@ -486,14 +477,14 @@ index ee0534c..d5867b7 100644
 --- a/iocore/net/OCSPStapling.cc
 +++ b/iocore/net/OCSPStapling.cc
 @@ -92,7 +92,7 @@ stapling_get_issuer(SSL_CTX *ssl_ctx, X509 *x)
- 
+
  #ifdef SSL_CTX_select_current_cert
    if (!SSL_CTX_select_current_cert(ssl_ctx, x)) {
 -    Warning("OCSP: could not select current certifcate chain %p", x);
 +    Warning("OCSP: could not select current certificate chain %p", x);
    }
  #endif
- 
+
 diff --git a/iocore/net/Socks.cc b/iocore/net/Socks.cc
 index e1915f2..a1a5999 100644
 --- a/iocore/net/Socks.cc
@@ -506,14 +497,14 @@ index e1915f2..a1a5999 100644
 +      Debug("Socks", "Username/Passwd succeeded");
        *h_ptr = nullptr;
        break;
- 
+
 diff --git a/iocore/net/UnixUDPNet.cc b/iocore/net/UnixUDPNet.cc
 index 71b45bb..05383fb 100644
 --- a/iocore/net/UnixUDPNet.cc
 +++ b/iocore/net/UnixUDPNet.cc
 @@ -628,7 +628,7 @@ UDPNetProcessor::CreateUDPSocket(int *resfd, sockaddr const *remote_addr, Action
      }
- 
+
      if ((res = safe_getsockname(fd, &local_addr.sa, &local_addr_len)) < 0) {
 -      Debug("udpnet", "CreateUdpsocket: getsockname didnt' work");
 +      Debug("udpnet", "CreateUdpsocket: getsockname didn't work");
@@ -540,7 +531,7 @@ index 0ab514d..5f7bb84 100644
 @@ -297,7 +297,7 @@ Alarms::signalAlarm(alarm_t a, const char *desc, const char *ip)
      (*(func))(a, ip, desc);
    }
- 
+
 -  /* Priority 2 alarms get signalled if they are the first unsolved occurence. */
 +  /* Priority 2 alarms get signalled if they are the first unsolved occurrence. */
    if (priority == 2 && !ip) {
@@ -564,12 +555,12 @@ index bb74e5a..272c3ef 100644
 --- a/plugins/esi/lib/EsiProcessor.cc
 +++ b/plugins/esi/lib/EsiProcessor.cc
 @@ -305,7 +305,7 @@ EsiProcessor::process(const char *&data, int &data_len)
- 
+
      /* FAILURE CACHE */
      FailureData *data = static_cast<FailureData *>(pthread_getspecific(threadKey));
 -    _debugLog("plugin_esi_failureInfo", "[%s]Fetched data related to thread specfic %p", __FUNCTION__, data);
 +    _debugLog("plugin_esi_failureInfo", "[%s]Fetched data related to thread specific %p", __FUNCTION__, data);
- 
+
      for (iter = try_iter->attempt_nodes.begin(); iter != try_iter->attempt_nodes.end(); ++iter) {
        if ((iter->type == DocNode::TYPE_INCLUDE) || iter->type == DocNode::TYPE_SPECIAL_INCLUDE) {
 @@ -342,7 +342,7 @@ EsiProcessor::process(const char *&data, int &data_len)
@@ -582,12 +573,12 @@ index bb74e5a..272c3ef 100644
      } else {
        _debugLog(_debug_tag, "[%s] attempt section errored; trying except section", __FUNCTION__);
 @@ -436,7 +436,7 @@ EsiProcessor::flush(string &data, int &overall_len)
- 
+
      /* FAILURE CACHE */
      FailureData *fdata = static_cast<FailureData *>(pthread_getspecific(threadKey));
 -    _debugLog("plugin_esi_failureInfo", "[%s]Fetched data related to thread specfic %p", __FUNCTION__, fdata);
 +    _debugLog("plugin_esi_failureInfo", "[%s]Fetched data related to thread specific %p", __FUNCTION__, fdata);
- 
+
      for (iter = try_iter->attempt_nodes.begin(); iter != try_iter->attempt_nodes.end(); ++iter) {
        if ((iter->type == DocNode::TYPE_INCLUDE) || iter->type == DocNode::TYPE_SPECIAL_INCLUDE) {
 @@ -473,7 +473,7 @@ EsiProcessor::flush(string &data, int &overall_len)
@@ -645,12 +636,12 @@ index 297e23f..b38a433 100644
 @@ -118,7 +118,7 @@ TSRemapInit(TSRemapInterface *api_info, char *errbuf, int errbuf_size)
      return TS_ERROR;
    }
- 
+
 -  TSDebug(PLUGIN_NAME, "plugin is succesfully initialized");
 +  TSDebug(PLUGIN_NAME, "plugin is successfully initialized");
    return TS_SUCCESS;
  }
- 
+
 diff --git a/plugins/experimental/header_normalize/header_normalize.cc b/plugins/experimental/header_normalize/header_normalize.cc
 index 1dddf35..d408ed5 100644
 --- a/plugins/experimental/header_normalize/header_normalize.cc
@@ -663,7 +654,7 @@ index 1dddf35..d408ed5 100644
 +  TSDebug(PLUGIN_NAME, "plugin is successfully initialized");
    return TS_SUCCESS;
  }
- 
+
 diff --git a/plugins/experimental/prefetch/plugin.cc b/plugins/experimental/prefetch/plugin.cc
 index 1c16ae0..e71d039 100644
 --- a/plugins/experimental/prefetch/plugin.cc
@@ -674,7 +665,7 @@ index 1c16ae0..e71d039 100644
    }
 -  PrefetchDebug("statement: '%s', formating length: %zu", stmt.c_str(), len);
 +  PrefetchDebug("statement: '%s', formatting length: %zu", stmt.c_str(), len);
- 
+
    int result = 0;
    pos        = stmt.find_first_of("+-");
 diff --git a/plugins/experimental/uri_signing/parse.c b/plugins/experimental/uri_signing/parse.c
@@ -687,7 +678,7 @@ index ade5706..6f7d421 100644
    }
 -  TimerDebug("inital validation of jwt");
 +  TimerDebug("initial validation of jwt");
- 
+
    cjose_header_t *hdr = cjose_jws_get_protected(jws);
    TimerDebug("getting header of jws");
 diff --git a/plugins/experimental/uri_signing/uri_signing.c b/plugins/experimental/uri_signing/uri_signing.c
@@ -697,12 +688,12 @@ index c648d18..55ba117 100644
 @@ -46,7 +46,7 @@ TSRemapInit(TSRemapInterface *api_info, char *errbuf, int errbuf_size)
      return TS_ERROR;
    }
- 
+
 -  TSDebug(PLUGIN_NAME, "plugin is succesfully initialized");
 +  TSDebug(PLUGIN_NAME, "plugin is successfully initialized");
    return TS_SUCCESS;
  }
- 
+
 diff --git a/plugins/experimental/url_sig/url_sig.c b/plugins/experimental/url_sig/url_sig.c
 index 65c36ac..5a61a2c 100644
 --- a/plugins/experimental/url_sig/url_sig.c
@@ -710,12 +701,12 @@ index 65c36ac..5a61a2c 100644
 @@ -98,7 +98,7 @@ TSRemapInit(TSRemapInterface *api_info, char *errbuf, int errbuf_size)
      return TS_ERROR;
    }
- 
+
 -  TSDebug(PLUGIN_NAME, "plugin is succesfully initialized");
 +  TSDebug(PLUGIN_NAME, "plugin is successfully initialized");
    return TS_SUCCESS;
  }
- 
+
 diff --git a/plugins/generator/generator.cc b/plugins/generator/generator.cc
 index 276313a..5f282cd 100644
 --- a/plugins/generator/generator.cc
@@ -728,7 +719,7 @@ index 276313a..5f282cd 100644
 +      VDEBUG("intercepting origin server request for txn=%p", arg.txn);
        TSHttpTxnServerIntercept(TSContCreate(GeneratorInterceptionHook, TSMutexCreate()), arg.txn);
      }
- 
+
 diff --git a/plugins/header_rewrite/header_rewrite.cc b/plugins/header_rewrite/header_rewrite.cc
 index e95b53c..3afdcc8 100644
 --- a/plugins/header_rewrite/header_rewrite.cc
@@ -750,11 +741,11 @@ index e95b53c..3afdcc8 100644
 +      TSDebug(PLUGIN_NAME, "Successfully loaded remap config file %s", argv[i]);
      }
    }
- 
+
 @@ -470,6 +470,6 @@ TSRemapDoRemap(void *ih, TSHttpTxn rh, TSRemapRequestInfo *rri)
      rule = rule->next;
    }
- 
+
 -  TSDebug(PLUGIN_NAME_DBG, "Returing from TSRemapDoRemap with status: %d", rval);
 +  TSDebug(PLUGIN_NAME_DBG, "Returning from TSRemapDoRemap with status: %d", rval);
    return rval;
@@ -778,7 +769,7 @@ index 1d95405..f8feb67 100644
 +++ b/plugins/s3_auth/s3_auth.cc
 @@ -871,7 +871,7 @@ event_handler(TSCont cont, TSEvent event, void *edata)
      }
- 
+
      if (TS_HTTP_STATUS_OK == status) {
 -      TSDebug(PLUGIN_NAME, "Succesfully signed the AWS S3 URL");
 +      TSDebug(PLUGIN_NAME, "Successfully signed the AWS S3 URL");
@@ -830,7 +821,7 @@ index 2b2d1b1..d96e581 100644
 +++ b/proxy/logging/LogBuffer.cc
 @@ -270,7 +270,7 @@ LogBuffer::checkout_write(size_t *write_offset, size_t write_size)
        }
- 
+
        if (switch_state(old_s, new_s)) {
 -        // we succeded in setting the new state
 +        // we succeeded in setting the new state
@@ -842,14 +833,14 @@ index c745bdd..f930675 100644
 --- a/proxy/logging/LogObject.cc
 +++ b/proxy/logging/LogObject.cc
 @@ -409,7 +409,7 @@ LogObject::_checkout_write(size_t *write_offset, size_t bytes_needed)
- 
+
      switch (result_code) {
      case LogBuffer::LB_OK:
 -      // checkout succeded
 +      // checkout succeeded
        retry = false;
        break;
- 
+
 diff --git a/src/traffic_cache_tool/CacheTool.cc b/src/traffic_cache_tool/CacheTool.cc
 index d6218ed..b4ede80 100644
 --- a/src/traffic_cache_tool/CacheTool.cc
@@ -875,7 +866,7 @@ index c2848f9..42aff7a 100644
 +    Warning("failed to initialize management API: %s", msg);
      TSfree(msg);
    }
- 
+
 diff --git a/src/traffic_logstats/logstats.cc b/src/traffic_logstats/logstats.cc
 index 72885e1..263292d 100644
 --- a/src/traffic_logstats/logstats.cc
@@ -913,16 +904,16 @@ index f481729..2a1000b 100644
 -  10 /* The argument depth upto which we would be looking into \
 +  10 /* The argument depth up to which we would be looking into \
          the stack */
- 
+
  // contains local and in registers, frame pointer, and stack base
 @@ -63,7 +63,7 @@ struct core_stack_state {
  #include <assert.h>
- 
+
  #define NO_OF_ARGS                                             \
 -  10 /* The argument depth upto which we would be looking into \
 +  10 /* The argument depth up to which we would be looking into \
          the stack */
- 
+
  // contains local and in registers, frame pointer, and stack base
 diff --git a/src/traffic_server/InkAPITest.cc b/src/traffic_server/InkAPITest.cc
 index 6193a0b..09aa44c 100644
@@ -957,14 +948,14 @@ index 8d9abcc..b11c259 100644
 @@ -50,7 +50,7 @@ domaincmp(const char *hostname, const char *domain)
    const char *host_cur   = hostname + strlen(hostname);
    const char *domain_cur = domain + strlen(domain);
- 
+
 -  // Check to see if were passed emtpy stings for either
 +  // Check to see if were passed empty stings for either
    //  argument.  Empty strings do not match anything
    //
    if (domain_cur == domain || host_cur == hostname) {
 @@ -380,7 +380,7 @@ charIndex::Insert(const char *match_data, HostBranch *toInsert)
- 
+
      // Check to see if are at the level we supposed be at
      if (*(match_data + 1) == '\0') {
 -      // The slot should always be emtpy, no duplicate
