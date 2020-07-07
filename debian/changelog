@@ -1,3 +1,11 @@
+trafficserver (8.0.8-1ubuntu1ppa1~bionic) bionic; urgency=medium
+
+  * Add debian/gbp.conf to set debian-branch to ubuntu/bionic
+  * New upstream version 8.0.8
+  * Update patches for trafficserver-8.0.8
+
+ -- Hiroaki Nakamura <hnakamur@gmail.com>  Wed, 08 Jul 2020 04:23:15 +0900
+
 trafficserver (8.0.7-1ubuntu1ppa1~bionic) bionic; urgency=medium
 
   * New upstream version 8.0.7
