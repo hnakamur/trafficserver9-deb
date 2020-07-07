@@ -1,3 +1,10 @@
+trafficserver (8.0.8-1ubuntu1ppa1~focal) focal; urgency=medium
+
+  * New upstream version 8.0.8
+  * Update patches for trafficserver-8.0.8
+
+ -- Hiroaki Nakamura <hnakamur@gmail.com>  Wed, 08 Jul 2020 03:53:47 +0900
+
 trafficserver (8.0.7-1ubuntu1ppa1~focal) focal; urgency=medium
 
   * Port to Ubuntu 20.04 LTS
