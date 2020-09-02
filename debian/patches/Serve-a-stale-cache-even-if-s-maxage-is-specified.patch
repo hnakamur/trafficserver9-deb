@@ -9,7 +9,7 @@ Subject: [PATCH 2/2] Serve a stale cache even if s-maxage is specified
 
 --- a/proxy/http/HttpTransact.cc
 +++ b/proxy/http/HttpTransact.cc
-@@ -5732,6 +5732,13 @@
+@@ -5766,6 +5766,13 @@
    uint32_t cc_mask;
    cc_mask = (MIME_COOKED_MASK_CC_MUST_REVALIDATE | MIME_COOKED_MASK_CC_PROXY_REVALIDATE | MIME_COOKED_MASK_CC_NEED_REVALIDATE_ONCE |
               MIME_COOKED_MASK_CC_NO_CACHE | MIME_COOKED_MASK_CC_NO_STORE | MIME_COOKED_MASK_CC_S_MAXAGE);
