@@ -59,6 +59,9 @@ override_dh_auto_install:
 	rm -f debian/tmp/usr/lib/trafficserver/lib*.la
 	rm -f debian/tmp/usr/lib/trafficserver/modules/*.la
 	rm -f debian/tmp/usr/lib/trafficserver/lib*.a
+	rm -f debian/tmp/usr/lib/trafficserver/plugin_*.la
+	rm -f debian/tmp/usr/lib/trafficserver/plugin_*.so
+	rm -rf debian/tmp/opt/trafficserver/man
 ifneq ($(DEB_HOST_ARCH_OS),linux)
 	# Remove Linux-specific plugin
 	sed -i '/\/healthchecks\.so$$/d' \
