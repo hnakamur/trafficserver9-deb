@@ -20,6 +20,7 @@
 #include <errno.h>
 #include <pthread.h>
 #include <getopt.h>
+#include <inttypes.h>
 
 #include "ts_lua_util.h"
 
@@ -128,7 +129,7 @@ create_lua_vms()
       ts_lua_max_state_count = TS_LUA_MAX_STATE_COUNT;
     } else {
       ts_lua_max_state_count = (int)mgmt_state;
-      TSDebug(TS_LUA_DEBUG_TAG, "[%s] found %s: [%d]", __FUNCTION__, ts_lua_mgmt_state_str, (int)ts_lua_max_state_count);
+      TSDebug(TS_LUA_DEBUG_TAG, "[%s] found %s: [%d]", __FUNCTION__, ts_lua_mgmt_state_str, ts_lua_max_state_count);
     }
 
     if (ts_lua_max_state_count < 1) {
@@ -206,7 +207,7 @@ statsHandler(TSCont contp, TSEvent event, void *edata)
   collectStats(plugin_stats);
   publishStats(plugin_stats);
 
-  TSContSchedule(contp, TS_LUA_STATS_TIMEOUT, TS_THREAD_POOL_TASK);
+  TSContScheduleOnPool(contp, TS_LUA_STATS_TIMEOUT, TS_THREAD_POOL_TASK);
 
   return TS_EVENT_NONE;
 }
@@ -317,7 +318,7 @@ TSRemapInit(TSRemapInterface *api_info, char *errbuf, int errbuf_size)
         TSDebug(TS_LUA_DEBUG_TAG, "Starting up stats management continuation");
         TSCont const scontp = TSContCreate(statsHandler, TSMutexCreate());
         TSContDataSet(scontp, plugin_stats);
-        TSContSchedule(scontp, TS_LUA_STATS_TIMEOUT, TS_THREAD_POOL_TASK);
+        TSContScheduleOnPool(scontp, TS_LUA_STATS_TIMEOUT, TS_THREAD_POOL_TASK);
       }
     } else {
       return TS_ERROR;
@@ -510,7 +511,7 @@ ts_lua_remap_plugin_init(void *ih, TSHttpTxn rh, TSRemapRequestInfo *rri)
 
   ts_lua_set_cont_info(L, NULL);
   if (lua_pcall(L, 0, 1, 0) != 0) {
-    TSError("[ts_lua] lua_pcall failed: %s", lua_tostring(L, -1));
+    TSError("[ts_lua][%s] lua_pcall failed: %s", __FUNCTION__, lua_tostring(L, -1));
     ret = TSREMAP_NO_REMAP;
 
   } else {
@@ -635,6 +636,7 @@ globalHookHandler(TSCont contp, TSEvent event ATS_UNUSED, void *edata)
     // to allow API(s) to fetch the pointers again when it re-enters the hook
     if (http_ctx->client_response_hdrp != NULL) {
       TSHandleMLocRelease(http_ctx->client_response_bufp, TS_NULL_MLOC, http_ctx->client_response_hdrp);
+      http_ctx->client_response_bufp = NULL;
       http_ctx->client_response_hdrp = NULL;
     }
     lua_getglobal(l, TS_LUA_FUNCTION_G_SEND_RESPONSE);
@@ -687,11 +689,20 @@ globalHookHandler(TSCont contp, TSEvent event ATS_UNUSED, void *edata)
   ts_lua_set_cont_info(l, NULL);
 
   if (lua_pcall(l, 0, 1, 0) != 0) {
-    TSError("[ts_lua] lua_pcall failed: %s", lua_tostring(l, -1));
+    TSError("[ts_lua][%s] lua_pcall failed: %s", __FUNCTION__, lua_tostring(l, -1));
   }
 
   ret = lua_tointeger(l, -1);
   lua_pop(l, 1);
+
+  // client response can be changed within a transaction
+  // (e.g. due to the follow redirect feature). So, clearing the pointers
+  // to allow API(s) to fetch the pointers again when it re-enters the hook
+  if (http_ctx->client_response_hdrp != NULL) {
+    TSHandleMLocRelease(http_ctx->client_response_bufp, TS_NULL_MLOC, http_ctx->client_response_hdrp);
+    http_ctx->client_response_bufp = NULL;
+    http_ctx->client_response_hdrp = NULL;
+  }
 
   if (http_ctx->has_hook) {
     // add a hook to release resources for context
@@ -723,7 +734,7 @@ TSPluginInit(int argc, const char *argv[])
   info.support_email = "dev@trafficserver.apache.org";
 
   if (TSPluginRegister(&info) != TS_SUCCESS) {
-    TSError("[ts_lua] Plugin registration failed");
+    TSError("[ts_lua][%s] Plugin registration failed", __FUNCTION__);
   }
 
   if (NULL == ts_lua_g_main_ctx_array) {
@@ -738,7 +749,7 @@ TSPluginInit(int argc, const char *argv[])
       if (NULL != plugin_stats) {
         TSCont const scontp = TSContCreate(statsHandler, TSMutexCreate());
         TSContDataSet(scontp, plugin_stats);
-        TSContSchedule(scontp, TS_LUA_STATS_TIMEOUT, TS_THREAD_POOL_TASK);
+        TSContScheduleOnPool(scontp, TS_LUA_STATS_TIMEOUT, TS_THREAD_POOL_TASK);
       }
     } else {
       return;
