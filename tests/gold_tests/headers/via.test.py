@@ -19,14 +19,12 @@ Those are then checked against a gold file to verify the protocol stack based ou
 #  limitations under the License.
 
 import os
-import subprocess
 
 Test.Summary = '''
 Check VIA header for protocol stack data.
 '''
 
 Test.SkipUnless(
-    Condition.HasATSFeature('TS_USE_TLS_ALPN'),
     Condition.HasCurlFeature('http2'),
     Condition.HasCurlFeature('IPv6')
 )
@@ -48,13 +46,18 @@ ts.addSSLfile("../remap/ssl/server.pem")
 ts.addSSLfile("../remap/ssl/server.key")
 
 ts.Variables.ssl_port = 4443
-ts.Disk.records_config.update({
-    'proxy.config.http.insert_request_via_str': 4,
-    'proxy.config.http.insert_response_via_str': 4,
-    'proxy.config.ssl.server.cert.path': '{0}'.format(ts.Variables.SSLDir),
-    'proxy.config.ssl.server.private_key.path': '{0}'.format(ts.Variables.SSLDir),
-    'proxy.config.http.server_ports': 'ipv4:{0} ipv4:{1}:proto=http2;http:ssl ipv6:{0} ipv6:{1}:proto=http2;http:ssl'.format(ts.Variables.port, ts.Variables.ssl_port),
-})
+ts.Disk.records_config.update(
+    {
+        'proxy.config.http.insert_request_via_str': 4,
+        'proxy.config.http.insert_response_via_str': 4,
+        'proxy.config.ssl.server.cert.path': '{0}'.format(
+            ts.Variables.SSLDir),
+        'proxy.config.ssl.server.private_key.path': '{0}'.format(
+            ts.Variables.SSLDir),
+        'proxy.config.http.server_ports': 'ipv4:{0} ipv4:{1}:proto=http2;http:ssl ipv6:{0} ipv6:{1}:proto=http2;http:ssl'.format(
+            ts.Variables.port,
+            ts.Variables.ssl_port),
+    })
 
 ts.Disk.remap_config.AddLine(
     'map http://www.example.com http://127.0.0.1:{0}'.format(server.Variables.Port)
@@ -76,7 +79,7 @@ tr = Test.AddTestRun()
 # Wait for the micro server
 tr.Processes.Default.StartBefore(server, ready=When.PortOpen(server.Variables.Port))
 # Delay on readiness of our ssl ports
-tr.Processes.Default.StartBefore(Test.Processes.ts, ready=When.PortOpen(ts.Variables.ssl_port))
+tr.Processes.Default.StartBefore(Test.Processes.ts)
 
 tr.Processes.Default.Command = 'curl --verbose --ipv4 --http1.1 --proxy localhost:{} http://www.example.com'.format(
     ts.Variables.port)
