@@ -37,7 +37,7 @@ configure_flags = \
 	--libexecdir=/usr/lib/trafficserver/modules \
 	--with-user=root --with-group=root --disable-silent-rules \
 	--enable-experimental-plugins --enable-32bit-build \
-	--enable-mime-sanity-check --enable-docs \
+	--enable-mime-sanity-check \
 	--with-build-version=$(DEB_VERSION) \
 	--with-brotli=/usr/include \
 	$(shell dpkg-buildflags --export=configure)
@@ -83,6 +83,9 @@ override_dh_fixperms:
 		    -Xvar/run/trafficserver
 	# Fix lintian warning
 	chmod -x debian/trafficserver-dev/usr/share/doc/trafficserver-dev/examples/remap_header_add/build.txt
+
+override_dh_installdocs:
+	# do nothing
 
 override_dh_installexamples:
 	dh_installexamples -XMakefile -X.libs -X.dirstamp -X.deps -X.la -X.lo
