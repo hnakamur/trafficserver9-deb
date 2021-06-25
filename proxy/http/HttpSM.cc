@@ -384,11 +384,8 @@ HttpSM::state_add_to_list(int event, void * /* data ATS_UNUSED */)
     if (ua_entry->read_vio) {
       // Seems like ua_entry->read_vio->disable(); should work, but that was
       // not sufficient to stop the state machine from processing IO events until the
-      // TXN_START hooks had completed
-      // Preserve the current read cont and mutex
-      NetVConnection *netvc = ((ProxyTransaction *)ua_entry->vc)->get_netvc();
-      ink_assert(netvc != nullptr);
-      ua_entry->read_vio = ua_entry->vc->do_io_read(netvc->read_vio_cont(), 0, nullptr);
+      // TXN_START hooks had completed.  Just set the number of bytes to read to 0
+      ua_entry->read_vio = ua_entry->vc->do_io_read(this, 0, nullptr);
     }
     return EVENT_CONT;
   }
@@ -775,6 +772,12 @@ HttpSM::state_read_client_request_header(int event, void *data)
     }
   case PARSE_RESULT_DONE:
     SMDebug("http", "[%" PRId64 "] done parsing client request header", sm_id);
+
+    if (!t_state.hdr_info.client_request.check_hdr_implements()) {
+      t_state.http_return_code = HTTP_STATUS_NOT_IMPLEMENTED;
+      call_transact_and_set_next_state(HttpTransact::BadRequest);
+      break;
+    }
 
     if (_from_early_data) {
       // Only allow early data for safe methods defined in RFC7231 Section 4.2.1.
@@ -1975,6 +1978,13 @@ HttpSM::state_read_server_response_header(int event, void *data)
     // fallthrough
 
   case PARSE_RESULT_DONE:
+
+    if (!t_state.hdr_info.server_response.check_hdr_implements()) {
+      t_state.http_return_code = HTTP_STATUS_BAD_GATEWAY;
+      call_transact_and_set_next_state(HttpTransact::BadRequest);
+      break;
+    }
+
     SMDebug("http_seq", "Done parsing server response header");
 
     // Now that we know that we have all of the origin server
