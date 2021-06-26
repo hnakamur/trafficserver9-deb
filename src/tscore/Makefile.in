@@ -935,6 +935,7 @@ rel_prefix = @rel_prefix@
 rel_runtimedir = @rel_runtimedir@
 rel_sbindir = @rel_sbindir@
 rel_sysconfdir = @rel_sysconfdir@
+runstatedir = @runstatedir@
 runtimedir = @runtimedir@
 sbindir = @sbindir@
 sharedstatedir = @sharedstatedir@

@@ -1045,19 +1045,19 @@ http_parser_parse_req(HTTPParser *parser, HdrHeap *heap, HTTPHdrImpl *hh, const 
     }
     goto parse_url;
   parse_version4:
-    if ((*cur != 'P') && (*cur != 'p')) {
+    if (*cur != 'P') {
       goto parse_url;
     }
     GETPREV(parse_url);
-    if ((*cur != 'T') && (*cur != 't')) {
+    if (*cur != 'T') {
       goto parse_url;
     }
     GETPREV(parse_url);
-    if ((*cur != 'T') && (*cur != 't')) {
+    if (*cur != 'T') {
       goto parse_url;
     }
     GETPREV(parse_url);
-    if ((*cur != 'H') && (*cur != 'h')) {
+    if (*cur != 'H') {
       goto parse_url;
     }
     version_start = cur;
@@ -1192,6 +1192,17 @@ validate_hdr_content_length(HdrHeap *heap, HTTPHdrImpl *hh)
     int content_length_len         = 0;
     const char *content_length_val = content_length_field->value_get(&content_length_len);
 
+    // RFC 7230 section 3.3.2
+    // Content-Length = 1*DIGIT
+    //
+    // If the content-length value contains a non-numeric value, the header is invalid
+    for (int i = 0; i < content_length_len; i++) {
+      if (!isdigit(content_length_val[i])) {
+        Debug("http", "Content-Length value contains non-digit, returning parse error");
+        return PARSE_RESULT_ERROR;
+      }
+    }
+
     while (content_length_field->has_dups()) {
       int content_length_len_2         = 0;
       const char *content_length_val_2 = content_length_field->m_next_dup->value_get(&content_length_len_2);
@@ -1300,19 +1311,19 @@ http_parser_parse_resp(HTTPParser *parser, HdrHeap *heap, HTTPHdrImpl *hh, const
     reason_end    = nullptr;
 
     version_start = cur = line_start;
-    if ((*cur != 'H') && (*cur != 'h')) {
+    if (*cur != 'H') {
       goto eoh;
     }
     GETNEXT(eoh);
-    if ((*cur != 'T') && (*cur != 't')) {
+    if (*cur != 'T') {
       goto eoh;
     }
     GETNEXT(eoh);
-    if ((*cur != 'T') && (*cur != 't')) {
+    if (*cur != 'T') {
       goto eoh;
     }
     GETNEXT(eoh);
-    if ((*cur != 'P') && (*cur != 'p')) {
+    if (*cur != 'P') {
       goto eoh;
     }
     GETNEXT(eoh);
@@ -1438,8 +1449,7 @@ http_parse_version(const char *start, const char *end)
     return HTTP_VERSION(0, 9);
   }
 
-  if (((start[0] == 'H') || (start[0] == 'h')) && ((start[1] == 'T') || (start[1] == 't')) &&
-      ((start[2] == 'T') || (start[2] == 't')) && ((start[3] == 'P') || (start[3] == 'p')) && (start[4] == '/')) {
+  if ((start[0] == 'H') && (start[1] == 'T') && (start[2] == 'T') && (start[3] == 'P') && (start[4] == '/')) {
     start += 5;
 
     maj = 0;
@@ -1779,6 +1789,30 @@ HTTPHdr::url_printed_length()
     zret = m_url_cached.length_get();
   }
   return zret;
+}
+
+// Look for headers that the proxy will need to be able to process
+// Return false if the proxy does not know how to process the header
+// Currently just looking at TRANSFER_ENCODING.  The proxy only knows how to
+// process the chunked action
+bool
+HTTPHdr::check_hdr_implements()
+{
+  bool retval = true;
+  MIMEField *transfer_encode =
+    mime_hdr_field_find(this->m_http->m_fields_impl, MIME_FIELD_TRANSFER_ENCODING, MIME_LEN_TRANSFER_ENCODING);
+  if (transfer_encode) {
+    int len;
+    const char *val;
+    do {
+      val = transfer_encode->value_get(&len);
+      if (len != 7 || 0 != strncasecmp(val, "chunked", len)) {
+        retval = false;
+      }
+      transfer_encode = transfer_encode->m_next_dup;
+    } while (retval && transfer_encode);
+  }
+  return retval;
 }
 
 /***********************************************************************
