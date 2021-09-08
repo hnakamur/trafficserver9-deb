@@ -8,10 +8,10 @@ Subject: Use -mcx16 on x86 platforms only
 
 --- a/configure.ac
 +++ b/configure.ac
-@@ -1596,10 +1596,13 @@ CFLAGS="${__saved_CFLAGS}"
+@@ -1615,10 +1615,13 @@
  AC_LANG_POP
  AC_SUBST(has_128bit_cas)
-
+ 
 +case "$host_cpu" in
 +    amd64|x86_64|i*86)
  AS_IF([test "x$needs_mcx16_for_cas" = "x1"], [
@@ -19,6 +19,6 @@ Subject: Use -mcx16 on x86 platforms only
      TS_ADDTO(AM_CXXFLAGS, [-mcx16])
  ])
 +esac
-
+ 
  # Check for POSIX capabilities library.
  # If we don't find it, disable checking for header.
