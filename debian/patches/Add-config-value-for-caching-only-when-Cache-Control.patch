@@ -11,7 +11,7 @@ Subject: [PATCH 1/2] Add config value for caching only when Cache-Control:
 
 --- a/proxy/http/HttpConfig.h
 +++ b/proxy/http/HttpConfig.h
-@@ -725,7 +725,10 @@
+@@ -729,7 +729,10 @@
    enum {
      CACHE_REQUIRED_HEADERS_NONE                   = 0,
      CACHE_REQUIRED_HEADERS_AT_LEAST_LAST_MODIFIED = 1,
@@ -25,7 +25,7 @@ Subject: [PATCH 1/2] Add config value for caching only when Cache-Control:
    enum {
 --- a/proxy/http/HttpTransact.cc
 +++ b/proxy/http/HttpTransact.cc
-@@ -6304,6 +6304,14 @@
+@@ -6271,6 +6271,14 @@
          }
          break;
  
