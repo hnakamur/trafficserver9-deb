@@ -1,3 +1,13 @@
+trafficserver (9.1.0-1ubuntu1ppa1~bionic) bionic; urgency=medium
+
+  * New upstream version 9.1.0
+  * Update patches for trafficserver 9.1.0
+  * Stop enabling mime sanity check
+  * Stop building documents since sphinx is old
+  * Install newly added experimental plugins
+
+ -- Hiroaki Nakamura <hnakamur@gmail.com>  Wed, 08 Sep 2021 09:10:39 +0900
+
 trafficserver (9.0.2-1ubuntu1ppa1~bionic) bionic; urgency=medium
 
   * New upstream version 9.0.2
