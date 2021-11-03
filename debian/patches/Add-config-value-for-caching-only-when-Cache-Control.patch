@@ -25,7 +25,7 @@ Subject: [PATCH 1/2] Add config value for caching only when Cache-Control:
    enum {
 --- a/proxy/http/HttpTransact.cc
 +++ b/proxy/http/HttpTransact.cc
-@@ -6271,6 +6271,14 @@
+@@ -6282,6 +6282,14 @@
          }
          break;
  
