@@ -1,3 +1,10 @@
+trafficserver (9.1.2-1ubuntu1ppa1~bionic) bionic; urgency=medium
+
+  * New upstream version 9.1.2
+  * Remove custom patches
+
+ -- Hiroaki Nakamura <hnakamur@gmail.com>  Tue, 15 Mar 2022 13:43:22 +0900
+
 trafficserver (9.1.1-1ubuntu1ppa1~bionic) bionic; urgency=medium
 
   * New upstream version 9.1.1
