@@ -3,7 +3,3 @@
 0006-fix-doc-build.patch
 0008-fix-python-check-unused-dependencies.patch
 0013-fix-perl-interpreter-path.patch
-
-# custom patches
-Add-config-value-for-caching-only-when-Cache-Control.patch
-Serve-a-stale-cache-even-if-s-maxage-is-specified.patch
