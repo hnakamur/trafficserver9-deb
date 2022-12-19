@@ -144,14 +144,15 @@ LTLIBRARIES = $(noinst_LTLIBRARIES)
 libyamlcpp_la_LIBADD =
 am__dirstamp = $(am__leading_dot)dirstamp
 am_libyamlcpp_la_OBJECTS = src/binary.lo src/convert.lo \
-	src/directives.lo src/emit.lo src/emitfromevents.lo \
-	src/emitter.lo src/emitterstate.lo src/emitterutils.lo \
-	src/exceptions.lo src/exp.lo src/memory.lo src/node.lo \
-	src/node_data.lo src/nodebuilder.lo src/nodeevents.lo \
-	src/null.lo src/ostream_wrapper.lo src/parse.lo src/parser.lo \
-	src/regex_yaml.lo src/scanner.lo src/scanscalar.lo \
-	src/scantag.lo src/scantoken.lo src/simplekey.lo \
-	src/singledocparser.lo src/stream.lo src/tag.lo
+	src/depthguard.lo src/directives.lo src/emit.lo \
+	src/emitfromevents.lo src/emitter.lo src/emitterstate.lo \
+	src/emitterutils.lo src/exceptions.lo src/exp.lo src/memory.lo \
+	src/node.lo src/node_data.lo src/nodebuilder.lo \
+	src/nodeevents.lo src/null.lo src/ostream_wrapper.lo \
+	src/parse.lo src/parser.lo src/regex_yaml.lo src/scanner.lo \
+	src/scanscalar.lo src/scantag.lo src/scantoken.lo \
+	src/simplekey.lo src/singledocparser.lo src/stream.lo \
+	src/tag.lo
 libyamlcpp_la_OBJECTS = $(am_libyamlcpp_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -173,20 +174,20 @@ DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)/include
 depcomp = $(SHELL) $(top_srcdir)/build/_aux/depcomp
 am__maybe_remake_depfiles = depfiles
 am__depfiles_remade = src/$(DEPDIR)/binary.Plo \
-	src/$(DEPDIR)/convert.Plo src/$(DEPDIR)/directives.Plo \
-	src/$(DEPDIR)/emit.Plo src/$(DEPDIR)/emitfromevents.Plo \
-	src/$(DEPDIR)/emitter.Plo src/$(DEPDIR)/emitterstate.Plo \
-	src/$(DEPDIR)/emitterutils.Plo src/$(DEPDIR)/exceptions.Plo \
-	src/$(DEPDIR)/exp.Plo src/$(DEPDIR)/memory.Plo \
-	src/$(DEPDIR)/node.Plo src/$(DEPDIR)/node_data.Plo \
-	src/$(DEPDIR)/nodebuilder.Plo src/$(DEPDIR)/nodeevents.Plo \
-	src/$(DEPDIR)/null.Plo src/$(DEPDIR)/ostream_wrapper.Plo \
-	src/$(DEPDIR)/parse.Plo src/$(DEPDIR)/parser.Plo \
-	src/$(DEPDIR)/regex_yaml.Plo src/$(DEPDIR)/scanner.Plo \
-	src/$(DEPDIR)/scanscalar.Plo src/$(DEPDIR)/scantag.Plo \
-	src/$(DEPDIR)/scantoken.Plo src/$(DEPDIR)/simplekey.Plo \
-	src/$(DEPDIR)/singledocparser.Plo src/$(DEPDIR)/stream.Plo \
-	src/$(DEPDIR)/tag.Plo
+	src/$(DEPDIR)/convert.Plo src/$(DEPDIR)/depthguard.Plo \
+	src/$(DEPDIR)/directives.Plo src/$(DEPDIR)/emit.Plo \
+	src/$(DEPDIR)/emitfromevents.Plo src/$(DEPDIR)/emitter.Plo \
+	src/$(DEPDIR)/emitterstate.Plo src/$(DEPDIR)/emitterutils.Plo \
+	src/$(DEPDIR)/exceptions.Plo src/$(DEPDIR)/exp.Plo \
+	src/$(DEPDIR)/memory.Plo src/$(DEPDIR)/node.Plo \
+	src/$(DEPDIR)/node_data.Plo src/$(DEPDIR)/nodebuilder.Plo \
+	src/$(DEPDIR)/nodeevents.Plo src/$(DEPDIR)/null.Plo \
+	src/$(DEPDIR)/ostream_wrapper.Plo src/$(DEPDIR)/parse.Plo \
+	src/$(DEPDIR)/parser.Plo src/$(DEPDIR)/regex_yaml.Plo \
+	src/$(DEPDIR)/scanner.Plo src/$(DEPDIR)/scanscalar.Plo \
+	src/$(DEPDIR)/scantag.Plo src/$(DEPDIR)/scantoken.Plo \
+	src/$(DEPDIR)/simplekey.Plo src/$(DEPDIR)/singledocparser.Plo \
+	src/$(DEPDIR)/stream.Plo src/$(DEPDIR)/tag.Plo
 am__mv = mv -f
 CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
@@ -597,6 +598,7 @@ use_tproxy = @use_tproxy@
 noinst_LTLIBRARIES = libyamlcpp.la
 libyamlcpp_la_SOURCES = src/binary.cpp \
 src/convert.cpp \
+src/depthguard.cpp \
 src/directives.cpp \
 src/emit.cpp \
 src/emitfromevents.cpp \
@@ -688,6 +690,7 @@ src/$(DEPDIR)/$(am__dirstamp):
 	@: > src/$(DEPDIR)/$(am__dirstamp)
 src/binary.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
 src/convert.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
+src/depthguard.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
 src/directives.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
 src/emit.lo: src/$(am__dirstamp) src/$(DEPDIR)/$(am__dirstamp)
 src/emitfromevents.lo: src/$(am__dirstamp) \
@@ -731,6 +734,7 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/binary.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/convert.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/depthguard.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/directives.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/emit.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/emitfromevents.Plo@am__quote@ # am--include-marker
@@ -994,6 +998,7 @@ clean-am: clean-generic clean-libtool clean-noinstLTLIBRARIES \
 distclean: distclean-am
 		-rm -f src/$(DEPDIR)/binary.Plo
 	-rm -f src/$(DEPDIR)/convert.Plo
+	-rm -f src/$(DEPDIR)/depthguard.Plo
 	-rm -f src/$(DEPDIR)/directives.Plo
 	-rm -f src/$(DEPDIR)/emit.Plo
 	-rm -f src/$(DEPDIR)/emitfromevents.Plo
@@ -1069,6 +1074,7 @@ installcheck-am:
 maintainer-clean: maintainer-clean-am
 		-rm -f src/$(DEPDIR)/binary.Plo
 	-rm -f src/$(DEPDIR)/convert.Plo
+	-rm -f src/$(DEPDIR)/depthguard.Plo
 	-rm -f src/$(DEPDIR)/directives.Plo
 	-rm -f src/$(DEPDIR)/emit.Plo
 	-rm -f src/$(DEPDIR)/emitfromevents.Plo
