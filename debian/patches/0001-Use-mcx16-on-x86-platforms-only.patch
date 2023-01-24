@@ -8,7 +8,7 @@ Subject: Use -mcx16 on x86 platforms only
 
 --- a/configure.ac
 +++ b/configure.ac
-@@ -1619,10 +1619,13 @@
+@@ -1626,10 +1626,13 @@
  AC_LANG_POP
  AC_SUBST(has_128bit_cas)
  
