@@ -1,3 +1,9 @@
+trafficserver (9.2.0-1ubuntu1ppa2~ubuntu18.04) bionic; urgency=medium
+
+  * Add add_lua_ts_http_get_parent_table_entry_count.patch
+
+ -- Hiroaki Nakamura <hnakamur@gmail.com>  Tue, 14 Feb 2023 11:29:08 +0900
+
 trafficserver (9.2.0-1ubuntu1ppa1~ubuntu18.04) bionic; urgency=medium
 
   * New upstream version 9.2.0
