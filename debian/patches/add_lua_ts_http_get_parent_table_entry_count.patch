@@ -1,0 +1,75 @@
+diff --git a/include/ts/ts.h b/include/ts/ts.h
+index 4d35972e7..78d66f178 100644
+--- a/include/ts/ts.h
++++ b/include/ts/ts.h
+@@ -2720,6 +2720,11 @@ tsapi void TSHostStatusSet(const char *hostname, const size_t hostname_len, TSHo
+ tsapi bool TSHttpTxnCntlGet(TSHttpTxn txnp, TSHttpCntlType ctrl);
+ tsapi TSReturnCode TSHttpTxnCntlSet(TSHttpTxn txnp, TSHttpCntlType ctrl, bool data);
+ 
++/*
++ * Get entry count in parent.config.
++ */
++tsapi int TSHttpParentTableGetEntryCount(TSHttpTxn txnp);
++
+ #ifdef __cplusplus
+ }
+ #endif /* __cplusplus */
+diff --git a/plugins/lua/ts_lua_http.c b/plugins/lua/ts_lua_http.c
+index e0249bd12..639cac1e3 100644
+--- a/plugins/lua/ts_lua_http.c
++++ b/plugins/lua/ts_lua_http.c
+@@ -119,6 +119,8 @@ static int ts_lua_http_req_transform_get_downstream_watermark_bytes(lua_State *L
+ static int ts_lua_http_req_transform_set_downstream_watermark_bytes(lua_State *L);
+ static int ts_lua_http_req_transform_set_upstream_bytes(lua_State *L);
+ 
++static int ts_lua_http_get_parent_table_entry_count(lua_State *L);
++
+ void
+ ts_lua_inject_http_api(lua_State *L)
+ {
+@@ -298,6 +300,9 @@ ts_lua_inject_http_misc_api(lua_State *L)
+   lua_pushcfunction(L, ts_lua_http_get_client_fd);
+   lua_setfield(L, -2, "get_client_fd");
+ 
++  lua_pushcfunction(L, ts_lua_http_get_parent_table_entry_count);
++  lua_setfield(L, -2, "get_parent_table_entry_count");
++
+   ts_lua_inject_server_state_variables(L);
+ }
+ 
+@@ -1064,3 +1069,15 @@ ts_lua_http_req_transform_set_upstream_bytes(lua_State *L)
+ {
+   return ts_lua_http_resp_transform_set_downstream_bytes(L);
+ }
++
++static int
++ts_lua_http_get_parent_table_entry_count(lua_State *L)
++{
++  ts_lua_http_ctx *http_ctx;
++
++  GET_HTTP_CONTEXT(http_ctx, L);
++
++  int count = TSHttpParentTableGetEntryCount(http_ctx->txnp);
++  lua_pushinteger(L, (lua_Integer)count);
++  return 1;
++}
+diff --git a/src/traffic_server/InkAPI.cc b/src/traffic_server/InkAPI.cc
+index 1f46cdfdb..1bdf40c56 100644
+--- a/src/traffic_server/InkAPI.cc
++++ b/src/traffic_server/InkAPI.cc
+@@ -10429,3 +10429,15 @@ TSHttpTxnPostBufferReaderGet(TSHttpTxn txnp)
+   HttpSM *sm = (HttpSM *)txnp;
+   return (TSIOBufferReader)sm->get_postbuf_clone_reader();
+ }
++
++/*
++ * Get entry count in parent.config.
++ */
++tsapi int
++TSHttpParentTableGetEntryCount(TSHttpTxn txnp)
++{
++  HttpSM *sm             = reinterpret_cast<HttpSM *>(txnp);
++  HttpTransact::State *s = &(sm->t_state);
++  return s->parent_params && s->parent_params->parent_table
++    ? s->parent_params->parent_table->getEntryCount() : 0;
++}
