@@ -6,3 +6,4 @@
 0015-fix-via-response-header-order.patch
 add_lua_ts_http_get_parent_table_entry_count.patch
 ltsv_escape_for_access_log.patch
+trafficserver-9.2.1-dont-add-content-length-for-cache-with-204-no-content.patch

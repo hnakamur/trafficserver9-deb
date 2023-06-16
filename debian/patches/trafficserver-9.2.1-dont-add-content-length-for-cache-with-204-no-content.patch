@@ -1,0 +1,13 @@
+--- a/proxy/http/HttpTransact.cc
++++ b/proxy/http/HttpTransact.cc
+@@ -6816,7 +6816,9 @@
+         change_response_header_because_of_range_request(s, header);
+         s->hdr_info.trust_response_cl = true;
+       } else {
+-        header->set_content_length(cl);
++        if (!(s->source == SOURCE_CACHE && header->status_get() == HTTP_STATUS_NO_CONTENT)) {
++          header->set_content_length(cl);
++        }
+         s->hdr_info.trust_response_cl = true;
+       }
+     } else {
