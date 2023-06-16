@@ -1,3 +1,10 @@
+trafficserver (9.2.1-1ubuntu1ppa1~ubuntu20.04) focal; urgency=medium
+
+  * New upstream version 9.2.1
+  * Update patches for trafficserver 9.2.1
+
+ -- Hiroaki Nakamura <hnakamur@gmail.com>  Fri, 16 Jun 2023 13:35:32 +0900
+
 trafficserver (9.2.0-1ubuntu1ppa3~ubuntu20.04) focal; urgency=medium
 
   * Add patch for escape LTSV in access log
