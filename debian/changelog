@@ -1,3 +1,9 @@
+trafficserver (9.2.1-1ubuntu1ppa2~ubuntu20.04) focal; urgency=medium
+
+  * Add patch to avoid adding Content-Length for 204 No Content response
+
+ -- Hiroaki Nakamura <hnakamur@gmail.com>  Thu, 22 Jun 2023 08:59:33 +0900
+
 trafficserver (9.2.1-1ubuntu1ppa1~ubuntu20.04) focal; urgency=medium
 
   * New upstream version 9.2.1
