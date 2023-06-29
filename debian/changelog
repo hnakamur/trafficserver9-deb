@@ -1,3 +1,9 @@
+trafficserver (9.2.1-1ubuntu1ppa3~ubuntu20.04) focal; urgency=medium
+
+  * Update patch not to add content-length for status 204 response
+
+ -- Hiroaki Nakamura <hnakamur@gmail.com>  Thu, 29 Jun 2023 10:53:40 +0900
+
 trafficserver (9.2.1-1ubuntu1ppa2~ubuntu20.04) focal; urgency=medium
 
   * Add patch to avoid adding Content-Length for 204 No Content response
