@@ -1,6 +1,6 @@
 --- a/include/ts/ts.h
 +++ b/include/ts/ts.h
-@@ -2713,6 +2713,11 @@
+@@ -2723,6 +2723,11 @@
  tsapi bool TSHttpTxnCntlGet(TSHttpTxn txnp, TSHttpCntlType ctrl);
  tsapi TSReturnCode TSHttpTxnCntlSet(TSHttpTxn txnp, TSHttpCntlType ctrl, bool data);
  
@@ -51,7 +51,7 @@
 +}
 --- a/src/traffic_server/InkAPI.cc
 +++ b/src/traffic_server/InkAPI.cc
-@@ -10358,3 +10358,15 @@
+@@ -10372,3 +10372,15 @@
    HttpSM *sm = (HttpSM *)txnp;
    return (TSIOBufferReader)sm->get_postbuf_clone_reader();
  }
