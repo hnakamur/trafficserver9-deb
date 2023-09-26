@@ -1,0 +1,13 @@
+diff --git a/include/tscore/BaseLogFile.h b/include/tscore/BaseLogFile.h
+index aad4735..19a1c90 100644
+--- a/include/tscore/BaseLogFile.h
++++ b/include/tscore/BaseLogFile.h
+@@ -44,7 +44,7 @@
+ #define LOGFILE_DEFAULT_PERMS (0644)
+ #define LOGFILE_ROLL_MAXPATHLEN 4096
+ #define BASELOGFILE_DEBUG_MODE \
+-  0 // change this to 1 to enable debug messages
++  1 // change this to 1 to enable debug messages
+     // TODO find a way to enable this from autotools
+ 
+ typedef enum {
