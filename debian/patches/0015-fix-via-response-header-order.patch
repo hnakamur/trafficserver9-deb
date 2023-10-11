@@ -3,11 +3,9 @@ Author: Hiroaki Nakamura <hnakamur@gmail.com>
 Origin: other, https://github.com/apache/trafficserver/pull/9239/files
 Last-Update: 2023-01-24
 ---
-diff --git a/proxy/http/HttpTransact.cc b/proxy/http/HttpTransact.cc
-index 20b3e68..f90f115 100644
 --- a/proxy/http/HttpTransact.cc
 +++ b/proxy/http/HttpTransact.cc
-@@ -4693,11 +4693,17 @@ HttpTransact::handle_cache_operation_on_forward_server_response(State *s)
+@@ -4697,11 +4697,17 @@
      //  the order of the fields
      MIMEField *resp_via = s->hdr_info.server_response.field_find(MIME_FIELD_VIA, MIME_LEN_VIA);
      if (resp_via) {
@@ -25,7 +23,7 @@ index 20b3e68..f90f115 100644
        }
        // HDR FIX ME - Multiple appends are VERY slow
        while (resp_via) {
-@@ -4706,6 +4712,9 @@ HttpTransact::handle_cache_operation_on_forward_server_response(State *s)
+@@ -4710,6 +4716,9 @@
          s->hdr_info.client_response.field_value_append(our_via, cfield, clen, true);
          resp_via = resp_via->m_next_dup;
        }
@@ -35,8 +33,6 @@ index 20b3e68..f90f115 100644
      }
      // a warning text is added only in the case of a NOT MODIFIED response
      if (warn_text) {
-diff --git a/proxy/http/HttpTransact.h b/proxy/http/HttpTransact.h
-index 2ec1e45..626fe1f 100644
 --- a/proxy/http/HttpTransact.h
 +++ b/proxy/http/HttpTransact.h
 @@ -44,6 +44,8 @@
@@ -48,11 +44,9 @@ index 2ec1e45..626fe1f 100644
  #define HTTP_RELEASE_ASSERT(X) ink_release_assert(X)
  
  #define DUMP_HEADER(T, H, I, S)                                 \
-diff --git a/proxy/http/HttpTransactHeaders.cc b/proxy/http/HttpTransactHeaders.cc
-index 90b9795..5f0d1da 100644
 --- a/proxy/http/HttpTransactHeaders.cc
 +++ b/proxy/http/HttpTransactHeaders.cc
-@@ -837,7 +837,7 @@ HttpTransactHeaders::insert_hsts_header_in_response(HttpTransact::State *s, HTTP
+@@ -837,7 +837,7 @@
  void
  HttpTransactHeaders::insert_via_header_in_response(HttpTransact::State *s, HTTPHdr *header)
  {

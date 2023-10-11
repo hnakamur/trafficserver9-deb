@@ -1,6 +1,6 @@
 --- a/include/ts/ts.h
 +++ b/include/ts/ts.h
-@@ -2723,6 +2723,11 @@
+@@ -2761,6 +2761,11 @@
  tsapi bool TSHttpTxnCntlGet(TSHttpTxn txnp, TSHttpCntlType ctrl);
  tsapi TSReturnCode TSHttpTxnCntlSet(TSHttpTxn txnp, TSHttpCntlType ctrl, bool data);
  
@@ -14,7 +14,7 @@
  #endif /* __cplusplus */
 --- a/plugins/lua/ts_lua_http.c
 +++ b/plugins/lua/ts_lua_http.c
-@@ -119,6 +119,8 @@
+@@ -128,6 +128,8 @@
  static int ts_lua_http_req_transform_set_downstream_watermark_bytes(lua_State *L);
  static int ts_lua_http_req_transform_set_upstream_bytes(lua_State *L);
  
@@ -23,9 +23,9 @@
  void
  ts_lua_inject_http_api(lua_State *L)
  {
-@@ -298,6 +300,9 @@
-   lua_pushcfunction(L, ts_lua_http_get_client_fd);
-   lua_setfield(L, -2, "get_client_fd");
+@@ -322,6 +324,9 @@
+   lua_pushcfunction(L, ts_lua_http_get_ssn_remote_addr);
+   lua_setfield(L, -2, "get_ssn_remote_addr");
  
 +  lua_pushcfunction(L, ts_lua_http_get_parent_table_entry_count);
 +  lua_setfield(L, -2, "get_parent_table_entry_count");
@@ -33,7 +33,7 @@
    ts_lua_inject_server_state_variables(L);
  }
  
-@@ -1064,3 +1069,15 @@
+@@ -1195,3 +1200,15 @@
  {
    return ts_lua_http_resp_transform_set_downstream_bytes(L);
  }
@@ -51,7 +51,7 @@
 +}
 --- a/src/traffic_server/InkAPI.cc
 +++ b/src/traffic_server/InkAPI.cc
-@@ -10372,3 +10372,15 @@
+@@ -10430,3 +10430,15 @@
    HttpSM *sm = (HttpSM *)txnp;
    return (TSIOBufferReader)sm->get_postbuf_clone_reader();
  }
