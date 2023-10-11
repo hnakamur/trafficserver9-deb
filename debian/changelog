@@ -1,3 +1,10 @@
+trafficserver (9.2.3-1ubuntu1ppa1~ubuntu20.04) focal; urgency=medium
+
+  * New upstream version 9.2.3
+  * Update patches for 9.2.3
+
+ -- Hiroaki Nakamura <hnakamur@gmail.com>  Wed, 11 Oct 2023 09:57:54 +0900
+
 trafficserver (9.2.2-1ubuntu1ppa1~ubuntu20.04) focal; urgency=medium
 
   * New upstream version 9.2.2
